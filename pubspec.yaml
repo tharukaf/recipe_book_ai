@@ -12,6 +12,7 @@ dependencies:
   google_fonts: ^6.2.1
   localstore: ^1.4.0
   flutter_speed_dial: ^7.0.0
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
