@@ -1,32 +1,39 @@
-import 'dart:collection';
+import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:recipe_book_ai/utils/recipe_models.dart';
 import 'package:recipe_book_ai/utils/titles.dart';
+import 'package:recipe_book_ai/widgets/add_new_ingredient.dart';
 import 'package:recipe_book_ai/widgets/responsive_layout.dart';
 import 'package:recipe_book_ai/widgets/recipe_prep_item.dart';
 
 class ResponsiveRecipeDetailItems extends StatelessWidget {
-  final List<Ingredient> list;
+  final List<Ingredient>? ingredientList;
   final void Function(int, bool?) changeCheckboxValue;
 
   const ResponsiveRecipeDetailItems({
     super.key,
     required this.changeCheckboxValue,
-    required this.list,
+    required this.ingredientList,
   });
 
   @override
   Widget build(BuildContext context) {
     return ResponsiveLayout(
-      child:
-          RecipePrepItems(list: list, changeCheckboxValue: changeCheckboxValue),
+      child: RecipePrepItems(
+          ingredientList: ingredientList!,
+          changeCheckboxValue: changeCheckboxValue),
     );
   }
 }
 
 class RecipeDetailScreen extends StatefulWidget {
+  final Recipe? recipe;
+  final bool isNewRecipe;
+
   const RecipeDetailScreen({
     super.key,
+    this.recipe,
+    required this.isNewRecipe,
   });
 
   @override
@@ -34,102 +41,35 @@ class RecipeDetailScreen extends StatefulWidget {
 }
 
 class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
-  var recipe = Recipe(
-    id: 0,
-    title: 'Recipe Name',
-    description: 'Recipe Description',
-    imagePath: 'assets/images/recipe_image.jpg',
-    ingredients: <Ingredient>[],
-    cookingSteps: <CookingStep>[],
-  );
-  var ingredient = HashMap<String, String>();
+  Recipe? recipe;
 
-  void changeCheckboxValue(int index, bool? value) {
+  handleAddNewIngredient(Ingredient ingredient) {
     setState(() {
-      for (Ingredient ingredient in recipe.ingredients!) {
-        if (ingredient.name == '${titles[0]} $index') {
-          ingredient.isDone = value;
-        }
-      }
+      recipe!.ingredients!.add(ingredient);
     });
   }
 
-  void addRecipeItem() async {
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Add Ingredient'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Enter the ingredient',
-                ),
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        height: 2,
-                      ),
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        labelText: 'Quantity',
-                      ),
-                    ),
-                  ),
-                  DropdownButton(
-                    // onChanged: (value) {
-                    //   setState(() {
-                    //     ingredient['unit'] = value.toString();
-                    //   });
-                    // },
-                    onChanged: (value) => ingredient['unit'] = value.toString(),
-                    items: const <DropdownMenuItem>[
-                      // DropdownMenuItem(value: Null, child: Text('')),
-                      DropdownMenuItem(value: 'g', child: Text('g')),
-                      DropdownMenuItem(value: 'kg', child: Text('kg')),
-                      DropdownMenuItem(value: 'ml', child: Text('ml')),
-                      DropdownMenuItem(value: 'l', child: Text('l')),
-                      DropdownMenuItem(value: 'tsp', child: Text('tsp')),
-                      DropdownMenuItem(value: 'tbsp', child: Text('tbsp')),
-                      DropdownMenuItem(value: 'cup', child: Text('cup')),
-                      DropdownMenuItem(value: 'pt', child: Text('pt')),
-                      DropdownMenuItem(value: 'qt', child: Text('qt')),
-                      DropdownMenuItem(value: 'gal', child: Text('gal')),
-                      DropdownMenuItem(value: 'oz', child: Text('oz')),
-                      DropdownMenuItem(value: 'lb', child: Text('lb'))
-                    ],
-                  )
-                ],
-              )
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  // TODO: Add ingredient to list
-                  // list.add(ingredientController.text);
-                });
-                Navigator.of(context).pop();
-              },
-              child: const Text('Add'),
-            ),
-          ],
-        );
-      },
-    );
+  @override
+  void initState() {
+    super.initState();
+    if (widget.isNewRecipe) {
+      recipe = Recipe(
+        id: 0,
+        title: '',
+        description: '',
+        imagePath: '',
+        ingredients: <Ingredient>[],
+        cookingSteps: <CookingStep>[],
+      );
+    } else {
+      recipe = widget.recipe;
+    }
+  }
+
+  void changeCheckboxValue(int index, bool? value) {
+    setState(() {
+      recipe!.ingredients![index].isDone = value!;
+    });
   }
 
   @override
@@ -139,12 +79,10 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       initialIndex: 0,
       length: tabsCount,
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          foregroundColor: const Color(0xFFFFFFFF),
-          shape: const CircleBorder(),
-          onPressed: addRecipeItem,
-          child: const Icon(Icons.add),
+        floatingActionButton: NewIngredientDialog(
+          ingredientIndex: recipe!.ingredients!.length,
+          recipe: recipe!,
+          handleAddNewIngredient: handleAddNewIngredient,
         ),
         appBar: AppBar(
           title: const Text('Recipe Title'),
@@ -169,7 +107,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
         body: TabBarView(children: [
           ResponsiveRecipeDetailItems(
               changeCheckboxValue: changeCheckboxValue,
-              list: recipe.ingredients!),
+              ingredientList: recipe!.ingredients),
           const Icon(Icons.soup_kitchen),
         ]),
       ),
@@ -178,30 +116,28 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 }
 
 class RecipePrepItems extends StatelessWidget {
-  final List<Ingredient> list;
+  final List<Ingredient> ingredientList;
   final void Function(int, bool?) changeCheckboxValue;
 
   const RecipePrepItems({
     super.key,
-    required this.list,
+    required this.ingredientList,
     required this.changeCheckboxValue,
   });
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme colorScheme = Theme.of(context).colorScheme;
-    final Color oddItemColor = colorScheme.primary.withOpacity(0.10);
-    final Color evenItemColor = colorScheme.primary.withOpacity(0.15);
-    return ListView.builder(
-      itemCount: 10,
-      itemBuilder: (BuildContext context, int index) {
-        return RecipePrepItem(
-            oddItemColor: oddItemColor,
-            evenItemColor: evenItemColor,
-            list: list,
-            index: index,
-            changeCheckboxValue: changeCheckboxValue);
-      },
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+      child: ListView.builder(
+        itemCount: ingredientList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return RecipePrepItem(
+              ingredient: ingredientList[index],
+              index: index,
+              changeCheckboxValue: changeCheckboxValue);
+        },
+      ),
     );
   }
 }

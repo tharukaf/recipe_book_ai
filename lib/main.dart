@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
             child: ListView.builder(
                 itemCount: recipes.length,
                 itemBuilder: (context, index) {
-                  return RecipleListTile(name: recipes[index].title);
+                  return RecipleListTile(recipe: recipes[index]);
                 }),
           ),
         ));

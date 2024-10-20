@@ -4,7 +4,7 @@ class Ingredient {
   double quantity;
   String? unit;
   String? preparation;
-  bool? isDone;
+  bool isDone;
 
   Ingredient({
     required this.id,
@@ -12,7 +12,7 @@ class Ingredient {
     required this.quantity,
     required this.unit,
     this.preparation,
-    this.isDone,
+    required this.isDone,
   });
 }
 
@@ -35,13 +35,15 @@ class Recipe {
   final String? imagePath;
   final List<Ingredient>? ingredients;
   final List<CookingStep>? cookingSteps;
+  final List<String>? tags;
 
   Recipe({
     required this.id,
     required this.title,
-    required this.description,
-    required this.imagePath,
-    required this.ingredients,
-    required this.cookingSteps,
+    this.description,
+    this.imagePath,
+    this.ingredients,
+    this.cookingSteps,
+    this.tags,
   });
 }

@@ -7,11 +7,23 @@ final mockRecipes = <Recipe>[
     description: 'A classic Italian pasta dish',
     imagePath: 'assets/images/spaghetti_carbonara.jpg',
     ingredients: [
-      Ingredient(id: 1, name: 'Spaghetti', quantity: 200, unit: 'g'),
-      Ingredient(id: 2, name: 'Eggs', quantity: 4, unit: ''),
-      Ingredient(id: 3, name: 'Parmesan cheese', quantity: 50, unit: 'g'),
-      Ingredient(id: 4, name: 'Pancetta', quantity: 100, unit: 'g'),
-      Ingredient(id: 5, name: 'Black pepper', quantity: 0, unit: 'to taste'),
+      Ingredient(
+          id: 1, name: 'Spaghetti', quantity: 200, unit: 'g', isDone: true),
+      Ingredient(id: 2, name: 'Eggs', quantity: 4, unit: '', isDone: false),
+      Ingredient(
+          id: 3,
+          name: 'Parmesan cheese',
+          quantity: 50,
+          unit: 'g',
+          isDone: false),
+      Ingredient(
+          id: 4, name: 'Pancetta', quantity: 100, unit: 'g', isDone: false),
+      Ingredient(
+          id: 5,
+          name: 'Black pepper',
+          quantity: 0,
+          unit: 'to taste',
+          isDone: false),
     ],
     cookingSteps: [
       CookingStep(stepNumber: 1, description: 'Boil the spaghetti.'),
@@ -19,6 +31,7 @@ final mockRecipes = <Recipe>[
       CookingStep(stepNumber: 3, description: 'Mix eggs and cheese.'),
       CookingStep(stepNumber: 4, description: 'Combine all ingredients.'),
     ],
+    tags: ['Pasta', 'Italian', 'Savory'],
   ),
   Recipe(
     id: 2,
@@ -26,11 +39,17 @@ final mockRecipes = <Recipe>[
     description: 'A spicy and flavorful chicken curry',
     imagePath: 'assets/images/chicken_curry.jpg',
     ingredients: [
-      Ingredient(id: 1, name: 'Chicken', quantity: 500, unit: 'g'),
-      Ingredient(id: 2, name: 'Onions', quantity: 2, unit: ''),
-      Ingredient(id: 3, name: 'Tomatoes', quantity: 3, unit: ''),
-      Ingredient(id: 4, name: 'Garlic', quantity: 4, unit: ''),
-      Ingredient(id: 5, name: 'Curry powder', quantity: 2, unit: 'tbsp'),
+      Ingredient(
+          id: 1, name: 'Chicken', quantity: 500, unit: 'g', isDone: false),
+      Ingredient(id: 2, name: 'Onions', quantity: 2, unit: '', isDone: false),
+      Ingredient(id: 3, name: 'Tomatoes', quantity: 3, unit: '', isDone: false),
+      Ingredient(id: 4, name: 'Garlic', quantity: 4, unit: '', isDone: false),
+      Ingredient(
+          id: 5,
+          name: 'Curry powder',
+          quantity: 2,
+          unit: 'tbsp',
+          isDone: false),
     ],
     cookingSteps: [
       CookingStep(stepNumber: 1, description: 'Chop the onions and garlic.'),
@@ -40,6 +59,7 @@ final mockRecipes = <Recipe>[
       CookingStep(
           stepNumber: 5, description: 'Simmer until chicken is cooked.'),
     ],
+    tags: ['Chicken', 'Curry', 'Spicy'],
   ),
   Recipe(
     id: 3,
@@ -47,13 +67,20 @@ final mockRecipes = <Recipe>[
     description: 'A rich and moist chocolate cake',
     imagePath: 'assets/images/chocolate_cake.jpg',
     ingredients: [
-      Ingredient(id: 1, name: 'Flour', quantity: 200, unit: 'g'),
-      Ingredient(id: 2, name: 'Sugar', quantity: 200, unit: 'g'),
-      Ingredient(id: 3, name: 'Cocoa powder', quantity: 50, unit: 'g'),
-      Ingredient(id: 4, name: 'Baking powder', quantity: 1, unit: 'tsp'),
-      Ingredient(id: 5, name: 'Eggs', quantity: 3, unit: ''),
-      Ingredient(id: 6, name: 'Butter', quantity: 100, unit: 'g'),
-      Ingredient(id: 7, name: 'Milk', quantity: 200, unit: 'ml'),
+      Ingredient(id: 1, name: 'Flour', quantity: 200, unit: 'g', isDone: false),
+      Ingredient(id: 2, name: 'Sugar', quantity: 200, unit: 'g', isDone: false),
+      Ingredient(
+          id: 3, name: 'Cocoa powder', quantity: 50, unit: 'g', isDone: false),
+      Ingredient(
+          id: 4,
+          name: 'Baking powder',
+          quantity: 1,
+          unit: 'tsp',
+          isDone: false),
+      Ingredient(id: 5, name: 'Eggs', quantity: 3, unit: '', isDone: false),
+      Ingredient(
+          id: 6, name: 'Butter', quantity: 100, unit: 'g', isDone: false),
+      Ingredient(id: 7, name: 'Milk', quantity: 200, unit: 'ml', isDone: false),
     ],
     cookingSteps: [
       CookingStep(stepNumber: 1, description: 'Preheat the oven to 180°C.'),
@@ -62,5 +89,6 @@ final mockRecipes = <Recipe>[
       CookingStep(stepNumber: 4, description: 'Pour into a baking tin.'),
       CookingStep(stepNumber: 5, description: 'Bake for 30 minutes.'),
     ],
+    tags: ['Sweet', 'Cake', 'Chocolate', 'Dessert'],
   ),
 ];

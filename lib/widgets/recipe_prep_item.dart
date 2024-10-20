@@ -3,20 +3,28 @@ import 'package:recipe_book_ai/utils/recipe_models.dart';
 import 'package:recipe_book_ai/utils/titles.dart';
 
 class RecipePrepItem extends StatelessWidget {
-  const RecipePrepItem({
+  RecipePrepItem({
     super.key,
-    required this.oddItemColor,
-    required this.evenItemColor,
-    required this.list,
     required this.index,
+    required this.ingredient,
     required this.changeCheckboxValue,
   });
 
-  final Color oddItemColor;
-  final Color evenItemColor;
-  final List<Ingredient> list;
   final int index;
+  final Ingredient ingredient;
   final void Function(int, bool?) changeCheckboxValue;
+
+  Color changeIngredientBackground() {
+    if (ingredient.isDone) {
+      return const Color.fromARGB(111, 76, 58, 78);
+    } else {
+      if (index.isOdd) {
+        return const Color.fromARGB(52, 176, 92, 189);
+      } else {
+        return const Color.fromARGB(36, 176, 92, 189);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,29 +35,27 @@ class RecipePrepItem extends StatelessWidget {
         padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: index.isOdd ? oddItemColor : evenItemColor,
+          color: changeIngredientBackground(),
           border: Border.all(
-            color: index.isOdd ? oddItemColor : evenItemColor,
             width: 1,
+            color: const Color.fromARGB(97, 206, 147, 216)!,
           ),
         ),
         child: Row(
           children: <Widget>[
             Checkbox(
-              value: list.contains('${titles[0]} $index'),
+              value: ingredient.isDone,
               onChanged: (bool? value) {
                 changeCheckboxValue(index, value);
               },
             ),
             Text(
-              list.contains('${titles[0]} $index')
-                  ? '${titles[0]} $index'
-                  : '${titles[0]} $index',
+              '${ingredient.quantity}${ingredient.unit} ${ingredient.name}',
               style: TextStyle(
                 color: Colors.black38,
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
-                decoration: list.contains('${titles[0]} $index')
+                decoration: ingredient.isDone
                     ? TextDecoration.lineThrough
                     : TextDecoration.none,
               ),

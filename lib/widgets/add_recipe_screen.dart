@@ -9,6 +9,6 @@ class AddRecipeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const RecipeDetailScreen();
+    return RecipeDetailScreen(isNewRecipe: true);
   }
 }
