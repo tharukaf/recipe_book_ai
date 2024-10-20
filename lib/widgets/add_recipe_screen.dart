@@ -1,37 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_book_ai/utils/recipe_models.dart';
+import 'package:recipe_book_ai/widgets/recipe_detail_screen.dart';
 
 class AddRecipeScreen extends StatelessWidget {
-  const AddRecipeScreen({super.key});
+  AddRecipeScreen({super.key});
+
+  late Recipe recipe;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Add Recipe'),
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Add Recipe',
-              style: TextStyle(
-                color: Colors.black38,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              'Add Recipe Description',
-              style: TextStyle(
-                color: Colors.black38,
-                fontSize: 18,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    return const RecipeDetailScreen();
   }
 }

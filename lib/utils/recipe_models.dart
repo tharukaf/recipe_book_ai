@@ -17,10 +17,12 @@ class Ingredient {
 }
 
 class CookingStep {
+  final int stepNumber;
   final String description;
   final String? duration;
 
   CookingStep({
+    required this.stepNumber,
     required this.description,
     this.duration,
   });
@@ -28,15 +30,15 @@ class CookingStep {
 
 class Recipe {
   final int id;
-  final String name;
-  final String description;
-  final String imagePath;
-  final List<Ingredient> ingredients;
-  final List<CookingStep> cookingSteps;
+  final String title;
+  final String? description;
+  final String? imagePath;
+  final List<Ingredient>? ingredients;
+  final List<CookingStep>? cookingSteps;
 
   Recipe({
     required this.id,
-    required this.name,
+    required this.title,
     required this.description,
     required this.imagePath,
     required this.ingredients,

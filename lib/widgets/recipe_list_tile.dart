@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:recipe_book_ai/widgets/recipe_detail_screen.dart';
 
 class RecipleListTile extends StatelessWidget {
-  final int index;
+  final String name;
   const RecipleListTile({
     super.key,
-    required this.index,
+    required this.name,
   });
 
   @override
@@ -24,7 +24,7 @@ class RecipleListTile extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => RecipeDetailScreen(index: index),
+              builder: (context) => const RecipeDetailScreen(),
             ),
           );
         },
@@ -33,14 +33,14 @@ class RecipleListTile extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.all(10),
         title: Text(
-          'Item $index',
+          name,
           style: const TextStyle(
               color: Color.fromARGB(151, 0, 0, 0),
               fontSize: 18,
               fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
-          'Description of Item $index',
+          'Description of Item $name',
           style: const TextStyle(
               color: Color.fromARGB(127, 0, 0, 0),
               fontSize: 14,

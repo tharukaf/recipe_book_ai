@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:recipe_book_ai/widgets/add_recipe_screen.dart';
+import 'package:recipe_book_ai/utils/recipe_models.dart';
 
 class FloatingActionBuilder extends StatelessWidget {
+  final void Function(Recipe recipe) handleAddRecipe;
   const FloatingActionBuilder({
     super.key,
+    required this.handleAddRecipe,
   });
 
   @override
@@ -21,7 +24,7 @@ class FloatingActionBuilder extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const AddRecipeScreen(),
+                builder: (context) => AddRecipeScreen(),
               ),
             );
           },
@@ -35,7 +38,7 @@ class FloatingActionBuilder extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const AddRecipeScreen(),
+                builder: (context) => AddRecipeScreen(),
               ),
             );
           },

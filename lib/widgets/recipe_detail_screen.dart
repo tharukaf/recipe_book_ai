@@ -25,11 +25,8 @@ class ResponsiveRecipeDetailItems extends StatelessWidget {
 }
 
 class RecipeDetailScreen extends StatefulWidget {
-  final int index;
-
   const RecipeDetailScreen({
     super.key,
-    required this.index,
   });
 
   @override
@@ -37,17 +34,19 @@ class RecipeDetailScreen extends StatefulWidget {
 }
 
 class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
-  var list = <Ingredient>[];
+  var recipe = Recipe(
+    id: 0,
+    title: 'Recipe Name',
+    description: 'Recipe Description',
+    imagePath: 'assets/images/recipe_image.jpg',
+    ingredients: <Ingredient>[],
+    cookingSteps: <CookingStep>[],
+  );
   var ingredient = HashMap<String, String>();
 
   void changeCheckboxValue(int index, bool? value) {
     setState(() {
-      // if (value!) {
-      //   list.add(Ingredient('${titles[0]} $index', false));
-      // } else {
-      //   list.remove('${titles[0]} $index');
-      // }
-      for (Ingredient ingredient in list) {
+      for (Ingredient ingredient in recipe.ingredients!) {
         if (ingredient.name == '${titles[0]} $index') {
           ingredient.isDone = value;
         }
@@ -148,7 +147,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
           child: const Icon(Icons.add),
         ),
         appBar: AppBar(
-          title: Text('Recipe Title ${widget.index}'),
+          title: const Text('Recipe Title'),
           notificationPredicate: (ScrollNotification notification) {
             return notification.depth == 1;
           },
@@ -169,7 +168,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
         ),
         body: TabBarView(children: [
           ResponsiveRecipeDetailItems(
-              changeCheckboxValue: changeCheckboxValue, list: list),
+              changeCheckboxValue: changeCheckboxValue,
+              list: recipe.ingredients!),
           const Icon(Icons.soup_kitchen),
         ]),
       ),

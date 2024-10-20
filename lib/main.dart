@@ -3,6 +3,8 @@ import 'dart:core';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe_book_ai/widgets/floating_action_builder.dart';
 import 'package:recipe_book_ai/widgets/recipe_list_tile.dart';
+import 'package:recipe_book_ai/utils/recipe_models.dart';
+import 'package:recipe_book_ai/utils/mock_recipes.dart';
 
 // TODO: Add localstore package functionality
 // import 'package:localstore/localstore.dart';
@@ -23,6 +25,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  var recipes = mockRecipes;
+
+  handleAddRecipe(Recipe recipe) {
+    setState(() {
+      recipes.add(recipe);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,7 +41,8 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.purple,
         ),
         home: Scaffold(
-          floatingActionButton: const FloatingActionBuilder(),
+          floatingActionButton:
+              FloatingActionBuilder(handleAddRecipe: handleAddRecipe),
           appBar: AppBar(
             backgroundColor: const Color.fromARGB(255, 176, 39, 146),
             title: Center(
@@ -48,9 +59,11 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           body: Center(
-            child: ListView.builder(itemBuilder: (context, index) {
-              return RecipleListTile(index: index);
-            }),
+            child: ListView.builder(
+                itemCount: recipes.length,
+                itemBuilder: (context, index) {
+                  return RecipleListTile(name: recipes[index].title);
+                }),
           ),
         ));
   }
