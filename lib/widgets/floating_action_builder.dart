@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:recipe_book_ai/widgets/AddRecipeScreen.dart';
+import 'package:recipe_book_ai/widgets/add_recipe_screen.dart';
 
 class FloatingActionBuilder extends StatelessWidget {
   const FloatingActionBuilder({
