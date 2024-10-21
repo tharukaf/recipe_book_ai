@@ -15,3 +15,5 @@ List<DropdownMenuItem> dropdownMenuItems = const <DropdownMenuItem>[
   DropdownMenuItem(value: 'oz', child: Text('oz')),
   DropdownMenuItem(value: 'lb', child: Text('lb'))
 ];
+
+// enum Unit {x , g, kg, ml, l, tsp, tbsp, cup, pt, qt, gal, oz, lb }

@@ -1,16 +1,8 @@
-import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:recipe_book_ai/utils/dropdown_unit_items.dart';
 import 'package:recipe_book_ai/utils/recipe_models.dart';
 
-class NewIngredientDialog extends StatelessWidget {
-  final Ingredient ingredient = Ingredient(
-    id: 0,
-    name: '',
-    quantity: 0,
-    unit: '',
-    isDone: false,
-  );
+class NewIngredientDialog extends StatefulWidget {
   final Recipe recipe;
   final void Function(Ingredient) handleAddNewIngredient;
   final int ingredientIndex;
@@ -23,8 +15,23 @@ class NewIngredientDialog extends StatelessWidget {
   });
 
   @override
+  State<NewIngredientDialog> createState() => _NewIngredientDialogState();
+}
+
+class _NewIngredientDialogState extends State<NewIngredientDialog> {
+  final TextEditingController unitController = TextEditingController();
+
+  final Ingredient ingredient = Ingredient(
+    id: 0,
+    name: '',
+    quantity: 0,
+    unit: '',
+    isDone: false,
+  );
+
+  @override
   Widget build(BuildContext context) {
-    ingredient.id = ingredientIndex;
+    ingredient.id = widget.ingredientIndex;
 
     return FloatingActionButton(
       backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -57,7 +64,7 @@ class NewIngredientDialog extends StatelessWidget {
                   Expanded(
                     child: TextField(
                       onChanged: (value) {
-                        ingredient.quantity = double.parse(value);
+                        ingredient.quantity = double.tryParse(value) ?? 0;
                       },
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
@@ -87,8 +94,10 @@ class NewIngredientDialog extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                handleAddNewIngredient(ingredient);
-                Navigator.of(context).pop();
+                if (ingredient.name.isNotEmpty && ingredient.quantity > 0) {
+                  widget.handleAddNewIngredient(ingredient);
+                  Navigator.of(context).pop();
+                }
               },
               child: const Text('Add'),
             ),

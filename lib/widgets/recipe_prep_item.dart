@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_book_ai/utils/recipe_models.dart';
-import 'package:recipe_book_ai/utils/titles.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RecipePrepItem extends StatelessWidget {
-  RecipePrepItem({
+  const RecipePrepItem({
     super.key,
     required this.index,
     required this.ingredient,
@@ -38,7 +38,7 @@ class RecipePrepItem extends StatelessWidget {
           color: changeIngredientBackground(),
           border: Border.all(
             width: 1,
-            color: const Color.fromARGB(97, 206, 147, 216)!,
+            color: const Color.fromARGB(97, 206, 147, 216),
           ),
         ),
         child: Row(
@@ -49,15 +49,35 @@ class RecipePrepItem extends StatelessWidget {
                 changeCheckboxValue(index, value);
               },
             ),
-            Text(
-              '${ingredient.quantity}${ingredient.unit} ${ingredient.name}',
-              style: TextStyle(
-                color: Colors.black38,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                decoration: ingredient.isDone
-                    ? TextDecoration.lineThrough
-                    : TextDecoration.none,
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: ingredient.isDone
+                    ? const Color.fromARGB(111, 76, 58, 78)
+                    : const Color.fromARGB(246, 255, 192, 239),
+              ),
+              child: Text(
+                '${ingredient.quantity % 1 == 0 ? ingredient.quantity.floor() : ingredient.quantity} ${ingredient.unit}',
+                style: const TextStyle(
+                  color: Colors.black54,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 15,
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 6),
+              child: Text(
+                ingredient.name,
+                style: GoogleFonts.deliusSwashCaps(
+                  color: Colors.black38,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  decoration: ingredient.isDone
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none,
+                ),
               ),
             ),
           ],

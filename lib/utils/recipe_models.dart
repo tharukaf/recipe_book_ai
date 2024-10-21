@@ -19,12 +19,12 @@ class Ingredient {
 class CookingStep {
   final int stepNumber;
   final String description;
-  final String? duration;
+  final Duration duration;
 
   CookingStep({
     required this.stepNumber,
     required this.description,
-    this.duration,
+    this.duration = Duration.zero,
   });
 }
 

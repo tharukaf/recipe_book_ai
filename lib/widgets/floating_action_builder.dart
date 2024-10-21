@@ -5,21 +5,25 @@ import 'package:recipe_book_ai/utils/recipe_models.dart';
 
 class FloatingActionBuilder extends StatelessWidget {
   final void Function(Recipe recipe) handleAddRecipe;
+  final Widget svg;
   const FloatingActionBuilder({
     super.key,
     required this.handleAddRecipe,
+    required this.svg,
   });
 
   @override
   Widget build(BuildContext context) {
     return SpeedDial(
+      overlayColor: Colors.black,
+      activeBackgroundColor: Colors.grey[200],
       animatedIcon: AnimatedIcons.menu_close,
       children: [
         SpeedDialChild(
           shape: const CircleBorder(),
           child: const Icon(Icons.edit),
           label: 'Add Recipe Manually',
-          backgroundColor: const Color.fromARGB(255, 236, 64, 207),
+          backgroundColor: const Color.fromARGB(255, 252, 252, 252),
           onTap: () {
             Navigator.push(
               context,
@@ -31,9 +35,9 @@ class FloatingActionBuilder extends StatelessWidget {
         ),
         SpeedDialChild(
           shape: const CircleBorder(),
-          child: const Icon(Icons.camera_alt),
+          child: svg,
           label: 'Add Recipe with AI',
-          backgroundColor: const Color.fromARGB(255, 236, 64, 213),
+          backgroundColor: const Color.fromARGB(255, 252, 252, 252),
           onTap: () {
             Navigator.push(
               context,
@@ -44,7 +48,7 @@ class FloatingActionBuilder extends StatelessWidget {
           },
         ),
       ],
-      backgroundColor: Colors.pink[400],
+      backgroundColor: const Color.fromARGB(255, 255, 198, 217),
       shape: const CircleBorder(),
       child: const Icon(Icons.add),
     );

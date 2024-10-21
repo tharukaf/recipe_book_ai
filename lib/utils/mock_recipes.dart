@@ -26,9 +26,18 @@ final mockRecipes = <Recipe>[
           isDone: false),
     ],
     cookingSteps: [
-      CookingStep(stepNumber: 1, description: 'Boil the spaghetti.'),
-      CookingStep(stepNumber: 2, description: 'Fry the pancetta.'),
-      CookingStep(stepNumber: 3, description: 'Mix eggs and cheese.'),
+      CookingStep(
+          stepNumber: 1,
+          description: 'Boil the spaghetti.',
+          duration: const Duration(minutes: 10)),
+      CookingStep(
+          stepNumber: 2,
+          description: 'Fry the pancetta.',
+          duration: const Duration(minutes: 5)),
+      CookingStep(
+          stepNumber: 3,
+          description: 'Mix eggs and cheese.',
+          duration: const Duration(seconds: 5)),
       CookingStep(stepNumber: 4, description: 'Combine all ingredients.'),
     ],
     tags: ['Pasta', 'Italian', 'Savory'],

@@ -5,10 +5,22 @@ import 'package:recipe_book_ai/widgets/recipe_detail_screen.dart';
 class AddRecipeScreen extends StatelessWidget {
   AddRecipeScreen({super.key});
 
-  late Recipe recipe;
+  late final Recipe? recipe;
 
   @override
   Widget build(BuildContext context) {
-    return RecipeDetailScreen(isNewRecipe: true);
+    Recipe recipe = Recipe(
+      id: 0,
+      title: '',
+      description: '',
+      imagePath: '',
+      ingredients: <Ingredient>[],
+      cookingSteps: <CookingStep>[],
+    );
+
+    return RecipeDetailScreen(
+      isNewRecipe: true,
+      recipe: recipe,
+    );
   }
 }

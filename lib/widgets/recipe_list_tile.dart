@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_book_ai/widgets/recipe_detail_screen.dart';
 import 'package:recipe_book_ai/utils/recipe_models.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RecipleListTile extends StatelessWidget {
   final Recipe recipe;
@@ -14,13 +15,18 @@ class RecipleListTile extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(17),
+        border: Border.all(
+          width: 2,
+          color: const Color.fromARGB(255, 255, 255, 255),
+        ),
         gradient: LinearGradient(colors: [
           Colors.purple[100]!,
           Colors.purple[50]!,
         ]),
       ),
-      margin: const EdgeInsets.all(7),
+      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
       child: ListTile(
+        titleAlignment: ListTileTitleAlignment.center,
         onTap: () {
           Navigator.push(
             context,
@@ -38,9 +44,9 @@ class RecipleListTile extends StatelessWidget {
         contentPadding: const EdgeInsets.all(10),
         title: Text(
           recipe.title,
-          style: const TextStyle(
-              color: Color.fromARGB(151, 0, 0, 0),
-              fontSize: 18,
+          style: GoogleFonts.deliusSwashCaps(
+              color: const Color.fromARGB(151, 0, 0, 0),
+              fontSize: 19,
               fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
