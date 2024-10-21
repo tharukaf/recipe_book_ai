@@ -22,10 +22,17 @@ class RecipeDetailScreen extends StatefulWidget {
 
 class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   Recipe? recipe;
+  int tabIndex = 0;
 
-  handleAddNewIngredient(Ingredient ingredient) {
+  void handleAddNewIngredient(Ingredient ingredient) {
     setState(() {
-      recipe!.ingredients!.add(ingredient);
+      recipe?.ingredients?.add(ingredient);
+    });
+  }
+
+  void handleAddNewCookStep(CookingStep step) {
+    setState(() {
+      recipe?.cookingSteps?.add(step);
     });
   }
 
@@ -44,42 +51,122 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   @override
   Widget build(BuildContext context) {
     const int tabsCount = 2;
+    final newIngredientDialog = NewIngredientDialog(
+      ingredientIndex: recipe!.ingredients!.length,
+      recipe: recipe!,
+      handleAddNewIngredient: handleAddNewIngredient,
+    );
+    final newCookingStepDialog = NewCookingStepDialog(
+        stepIndex: recipe!.cookingSteps!.length,
+        recipe: recipe!,
+        handleAddNewCookStep: handleAddNewCookStep);
     return DefaultTabController(
       initialIndex: 0,
       length: tabsCount,
-      child: Scaffold(
-        floatingActionButton: NewIngredientDialog(
-          ingredientIndex: recipe!.ingredients!.length,
-          recipe: recipe!,
-          handleAddNewIngredient: handleAddNewIngredient,
-        ),
-        appBar: AppBar(
-          title: Text(recipe!.title),
-          notificationPredicate: (ScrollNotification notification) {
-            return notification.depth == 1;
-          },
-          scrolledUnderElevation: 4.0,
-          shadowColor: Theme.of(context).shadowColor,
-          bottom: TabBar(
-            tabs: <Widget>[
-              Tab(
-                icon: const Icon(Icons.shopping_cart),
-                text: titles[0],
-              ),
-              Tab(
-                icon: const Icon(Icons.soup_kitchen),
-                text: titles[1],
-              ),
-            ],
+      child: DefaultTabControllerListener(
+        onTabChanged: (index) {
+          setState(() {
+            tabIndex = index;
+          });
+        },
+        child: Scaffold(
+          floatingActionButton:
+              tabIndex == 0 ? newIngredientDialog : newCookingStepDialog,
+          appBar: AppBar(
+            title: Text(recipe!.title),
+            notificationPredicate: (ScrollNotification notification) {
+              return notification.depth == 1;
+            },
+            scrolledUnderElevation: 4.0,
+            shadowColor: Theme.of(context).shadowColor,
+            bottom: TabBar(
+              tabs: <Widget>[
+                Tab(
+                  icon: const Icon(Icons.shopping_cart),
+                  text: titles[0],
+                ),
+                Tab(
+                  icon: const Icon(Icons.soup_kitchen),
+                  text: titles[1],
+                ),
+              ],
+            ),
           ),
+          body: TabBarView(children: [
+            RecipePrepItems(
+                changeCheckboxValue: changeCheckboxValue,
+                ingredientList: recipe!.ingredients!),
+            RecipeCookItems(cookingSteps: recipe!.cookingSteps!),
+          ]),
         ),
-        body: TabBarView(children: [
-          RecipePrepItems(
-              changeCheckboxValue: changeCheckboxValue,
-              ingredientList: recipe!.ingredients!),
-          RecipeCookItems(cookingSteps: recipe!.cookingSteps!),
-        ]),
       ),
     );
+  }
+}
+
+class DefaultTabControllerListener extends StatefulWidget {
+  const DefaultTabControllerListener({
+    required this.onTabChanged,
+    required this.child,
+    super.key,
+  });
+
+  final ValueChanged<int> onTabChanged;
+
+  final Widget child;
+
+  @override
+  State<DefaultTabControllerListener> createState() =>
+      _DefaultTabControllerListenerState();
+}
+
+class _DefaultTabControllerListenerState
+    extends State<DefaultTabControllerListener> {
+  TabController? _controller;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final TabController? defaultTabController =
+        DefaultTabController.maybeOf(context);
+
+    assert(() {
+      if (defaultTabController == null) {
+        throw FlutterError(
+          'No DefaultTabController for ${widget.runtimeType}.\n'
+          'When creating a ${widget.runtimeType}, you must ensure that there '
+          'is a DefaultTabController above the ${widget.runtimeType}.',
+        );
+      }
+      return true;
+    }());
+
+    if (defaultTabController != _controller) {
+      _controller?.removeListener(_listener);
+      _controller = defaultTabController;
+      _controller?.addListener(_listener);
+    }
+  }
+
+  void _listener() {
+    final TabController? controller = _controller;
+
+    if (controller == null || controller.indexIsChanging) {
+      return;
+    }
+
+    widget.onTabChanged(controller.index);
+  }
+
+  @override
+  void dispose() {
+    _controller?.removeListener(_listener);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.child;
   }
 }

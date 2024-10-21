@@ -147,9 +147,7 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
                         child: Column(
                           children: [
                             const Text('Start Timer'),
-                            Text(countdown % 60 == 0
-                                ? '${countdown ~/ 60}:00'
-                                : '${countdown ~/ 60}:${countdown % 60}'),
+                            Text(getTimerText(countdown)),
                           ],
                         ),
                       )),

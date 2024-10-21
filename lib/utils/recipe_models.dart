@@ -17,9 +17,9 @@ class Ingredient {
 }
 
 class CookingStep {
-  final int stepNumber;
-  final String description;
-  final Duration duration;
+  int stepNumber;
+  String description;
+  Duration duration;
 
   CookingStep({
     required this.stepNumber,
