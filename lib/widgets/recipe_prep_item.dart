@@ -71,7 +71,7 @@ class RecipePrepItem extends StatelessWidget {
               child: Text(
                 ingredient.name,
                 style: GoogleFonts.deliusSwashCaps(
-                  color: Colors.black38,
+                  color: Colors.black54,
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
                   decoration: ingredient.isDone

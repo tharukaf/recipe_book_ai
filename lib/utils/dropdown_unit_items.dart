@@ -5,7 +5,7 @@ List<DropdownMenuItem> dropdownMenuItems = const <DropdownMenuItem>[
   DropdownMenuItem(value: 'g', child: Text('g')),
   DropdownMenuItem(value: 'kg', child: Text('kg')),
   DropdownMenuItem(value: 'ml', child: Text('ml')),
-  DropdownMenuItem(value: 'l', child: Text('l')),
+  DropdownMenuItem(value: 'L', child: Text('L')),
   DropdownMenuItem(value: 'tsp', child: Text('tsp')),
   DropdownMenuItem(value: 'tbsp', child: Text('tbsp')),
   DropdownMenuItem(value: 'cup', child: Text('cup')),
