@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:recipe_book_ai/widgets/add_recipe_screen.dart';
-import 'package:recipe_book_ai/utils/recipe_models.dart';
 
 class FloatingActionBuilder extends StatelessWidget {
-  final void Function(Recipe recipe) handleAddRecipe;
   final Widget svg;
   const FloatingActionBuilder({
     super.key,
-    required this.handleAddRecipe,
     required this.svg,
   });
 

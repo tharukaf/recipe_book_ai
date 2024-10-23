@@ -17,6 +17,8 @@ dependencies:
   flutter_platform_alert: ^0.6.1
   duration_picker: ^1.2.0
   textfield_tags: ^3.0.1
+  provider: ^6.1.2
+  nanoid: ^1.0.0
 
 dev_dependencies:
   flutter_test:

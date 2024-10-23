@@ -11,7 +11,7 @@ class ResponsiveLayout extends StatelessWidget {
       builder: (context, constraints) {
         if (constraints.maxWidth > 700) {
           return Center(
-            child: Container(
+            child: SizedBox(
               width: constraints.maxWidth * 0.7,
               child: child,
             ),

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:nanoid/nanoid.dart';
 import 'package:recipe_book_ai/utils/recipe_models.dart';
 import 'package:recipe_book_ai/widgets/recipe_detail_screen.dart';
 
+// ignore: must_be_immutable
 class AddRecipeScreen extends StatelessWidget {
   AddRecipeScreen({super.key});
 
-  late final Recipe? recipe;
+  Recipe? recipe;
 
   @override
   Widget build(BuildContext context) {
-    Recipe recipe = Recipe(
-      id: 0,
+    recipe = Recipe(
+      id: nanoid(),
       title: '',
       description: '',
       imagePath: '',

@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe_book_ai/utils/recipe_models.dart';
 import 'package:recipe_book_ai/utils/titles.dart';
 import 'package:recipe_book_ai/widgets/add_new_ingredient.dart';
@@ -73,7 +74,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
           floatingActionButton:
               tabIndex == 0 ? newIngredientDialog : newCookingStepDialog,
           appBar: AppBar(
-            title: Text(recipe!.title),
+            title: Text(widget.isNewRecipe ? 'Add New Recipe' : recipe!.title,
+                style: GoogleFonts.deliusSwashCaps()),
             notificationPredicate: (ScrollNotification notification) {
               return notification.depth == 1;
             },
@@ -94,6 +96,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
           ),
           body: TabBarView(children: [
             RecipePrepItems(
+                recipe: recipe!,
+                isNewRecipe: widget.isNewRecipe,
                 changeCheckboxValue: changeCheckboxValue,
                 ingredientList: recipe!.ingredients!),
             RecipeCookItems(cookingSteps: recipe!.cookingSteps!),

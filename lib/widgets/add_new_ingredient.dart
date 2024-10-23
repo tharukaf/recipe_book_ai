@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe_book_ai/utils/dropdown_unit_items.dart';
 import 'package:recipe_book_ai/utils/recipe_models.dart';
-import 'package:duration_picker/duration_picker.dart';
-import 'package:textfield_tags/textfield_tags.dart';
+import 'package:recipe_book_ai/widgets/duration_text_field.dart';
+// import 'package:textfield_tags/textfield_tags.dart';
 
 class NewIngredientDialog extends StatefulWidget {
   final Recipe recipe;
@@ -131,7 +131,7 @@ class NewCookingStepDialog extends StatefulWidget {
   final void Function(CookingStep) handleAddNewCookStep;
   final int stepIndex;
 
-  NewCookingStepDialog({
+  const NewCookingStepDialog({
     super.key,
     required this.stepIndex,
     required this.recipe,
@@ -262,12 +262,7 @@ class _NewCookingStepDialogState extends State<NewCookingStepDialog> {
                     ),
                   ),
                 ),
-                // Container(
-                //   margin: const EdgeInsets.only(top: 10),
-                //   child: SizedBox(
-                //     width: 200,
-                //     child: TextFieldTags(inputFieldBuilder: ,),
-                //   ),
+
                 // ) TODO: Add tags https://pub.dev/packages/textfield_tags
                 // TODO: Fix cook step input validation
                 // TODO: Add serving size input
@@ -298,34 +293,6 @@ class _NewCookingStepDialogState extends State<NewCookingStepDialog> {
           ],
         );
       },
-    );
-  }
-}
-
-class DurationTextField extends StatelessWidget {
-  final String? labelText;
-  final void Function(String)? handleChangeDuration;
-
-  const DurationTextField({
-    super.key,
-    required this.labelText,
-    required this.handleChangeDuration,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(3),
-      child: SizedBox(
-        width: 50,
-        child: TextField(
-          keyboardType: TextInputType.number,
-          onChanged: handleChangeDuration,
-          decoration: InputDecoration(
-            labelText: labelText,
-          ),
-        ),
-      ),
     );
   }
 }

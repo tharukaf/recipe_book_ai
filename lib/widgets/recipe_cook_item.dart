@@ -50,10 +50,9 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                clipBehavior: Clip.antiAlias,
                 constraints: const BoxConstraints.tightFor(
                   height: 65,
-                  width: 30,
+                  width: 35,
                 ),
                 decoration: BoxDecoration(
                     color: Colors.purple[200],
@@ -67,7 +66,12 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
                   child: Text(
                     widget.cookingStep.stepNumber.toString(),
                     style: GoogleFonts.pacifico(
-                      fontSize: 60,
+                      fontSize: widget.cookingStep.stepNumber > 99
+                          ? 30
+                          : widget.cookingStep.stepNumber > 9
+                              ? 40
+                              : 60,
+                      letterSpacing: -5,
                       color: const Color.fromARGB(104, 74, 20, 140),
                     ),
                   ),
@@ -81,7 +85,7 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
                     : widget.cookingStep.description,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
-                softWrap: true,
+                softWrap: false,
 
                 style: GoogleFonts.deliusSwashCaps(
                     color: Colors.black54,

@@ -1,8 +1,9 @@
 import 'package:recipe_book_ai/utils/recipe_models.dart';
+import 'package:nanoid/nanoid.dart';
 
 final mockRecipes = <Recipe>[
   Recipe(
-    id: 1,
+    id: nanoid(),
     title: 'Spaghetti Carbonara',
     description: 'A classic Italian pasta dish',
     imagePath: 'assets/images/spaghetti_carbonara.jpg',
@@ -43,7 +44,7 @@ final mockRecipes = <Recipe>[
     tags: ['Pasta', 'Italian', 'Savory'],
   ),
   Recipe(
-    id: 2,
+    id: nanoid(),
     title: 'Chicken Curry',
     description: 'A spicy and flavorful chicken curry',
     imagePath: 'assets/images/chicken_curry.jpg',
@@ -71,7 +72,7 @@ final mockRecipes = <Recipe>[
     tags: ['Chicken', 'Curry', 'Spicy'],
   ),
   Recipe(
-    id: 3,
+    id: nanoid(),
     title: 'Chocolate Cake',
     description: 'A rich and moist chocolate cake',
     imagePath: 'assets/images/chocolate_cake.jpg',

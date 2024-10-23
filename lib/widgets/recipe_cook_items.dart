@@ -6,7 +6,7 @@ import 'package:recipe_book_ai/widgets/responsive_layout.dart';
 class RecipeCookItems extends StatefulWidget {
   final List<CookingStep> cookingSteps;
 
-  RecipeCookItems({
+  const RecipeCookItems({
     super.key,
     required this.cookingSteps,
   });

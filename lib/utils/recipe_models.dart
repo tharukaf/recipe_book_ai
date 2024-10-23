@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Ingredient {
   int id;
   String name;
@@ -11,7 +13,6 @@ class Ingredient {
     required this.name,
     required this.quantity,
     required this.unit,
-    this.preparation,
     required this.isDone,
   });
 }
@@ -29,13 +30,13 @@ class CookingStep {
 }
 
 class Recipe {
-  final int id;
-  final String title;
-  final String? description;
-  final String? imagePath;
+  String id;
+  String title;
+  String? description;
+  String? imagePath;
+  List<String>? tags;
   final List<Ingredient>? ingredients;
   final List<CookingStep>? cookingSteps;
-  final List<String>? tags;
 
   Recipe({
     required this.id,
@@ -46,4 +47,32 @@ class Recipe {
     this.cookingSteps,
     this.tags,
   });
+}
+
+class Recipes extends ChangeNotifier {
+  List<Recipe> recipes = <Recipe>[];
+  int get length => recipes.length;
+
+  Recipe operator [](int index) => recipes[index];
+
+  Recipes(
+    this.recipes,
+  );
+
+  Recipes.empty() {
+    recipes = <Recipe>[];
+  }
+
+  void addRecipe(Recipe recipe) {
+    recipes.add(recipe);
+    notifyListeners();
+  }
+
+  void updateRecipe(Recipe recipe) {
+    final index = recipes.indexWhere((element) => element.id == recipe.id);
+    if (index != -1) {
+      recipes[index] = recipe;
+      notifyListeners();
+    }
+  }
 }
