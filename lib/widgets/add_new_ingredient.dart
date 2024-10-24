@@ -146,6 +146,21 @@ class NewCookingStepDialog extends StatefulWidget {
   State<NewCookingStepDialog> createState() => _NewCookingStepDialogState();
 }
 
+final boxDeco = BoxDecoration(
+  gradient: LinearGradient(
+    colors: [
+      const Color.fromARGB(255, 255, 192, 218),
+      const Color.fromARGB(255, 250, 181, 181).withOpacity(0.5),
+    ],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  ),
+  border: Border.all(
+    color: Colors.black38,
+  ),
+  borderRadius: BorderRadius.circular(10),
+);
+
 class _NewCookingStepDialogState extends State<NewCookingStepDialog> {
   final TextEditingController stepController = TextEditingController();
 
@@ -155,23 +170,14 @@ class _NewCookingStepDialogState extends State<NewCookingStepDialog> {
     'mins': 0,
     'secs': 0,
   };
-  final boxDeco = BoxDecoration(
-    gradient: LinearGradient(
-      colors: [
-        const Color.fromARGB(255, 255, 192, 218),
-        const Color.fromARGB(255, 250, 181, 181).withOpacity(0.5),
-      ],
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-    ),
-    border: Border.all(
-      color: Colors.black38,
-    ),
-    borderRadius: BorderRadius.circular(10),
-  );
 
   @override
   Widget build(BuildContext context) {
+    duration = {
+      'hrs': 0,
+      'mins': 0,
+      'secs': 0,
+    };
     cookingStep = CookingStep(
       stepNumber: 0,
       description: '',
@@ -193,7 +199,7 @@ class _NewCookingStepDialogState extends State<NewCookingStepDialog> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            'Add Cook Step',
+            'Cook Step Details',
             style: GoogleFonts.deliusSwashCaps(
               fontWeight: FontWeight.bold,
             ),
@@ -237,27 +243,24 @@ class _NewCookingStepDialogState extends State<NewCookingStepDialog> {
                         Row(
                           children: [
                             DurationTextField(
+                              duration: duration['hrs'],
                               labelText: 'Hrs',
                               handleChangeDuration: (value) {
-                                setState(() {
-                                  duration['hrs'] = int.tryParse(value) ?? 0;
-                                });
+                                duration['hrs'] = int.tryParse(value) ?? 0;
                               },
                             ),
                             DurationTextField(
+                              duration: duration['mins'],
                               labelText: 'Mins',
                               handleChangeDuration: (value) {
-                                setState(() {
-                                  duration['mins'] = int.tryParse(value) ?? 0;
-                                });
+                                duration['mins'] = int.tryParse(value) ?? 0;
                               },
                             ),
                             DurationTextField(
+                              duration: duration['secs'],
                               labelText: 'Secs',
                               handleChangeDuration: (value) {
-                                setState(() {
-                                  duration['secs'] = int.tryParse(value) ?? 0;
-                                });
+                                duration['secs'] = int.tryParse(value) ?? 0;
                               },
                             ),
                           ],
@@ -268,7 +271,6 @@ class _NewCookingStepDialogState extends State<NewCookingStepDialog> {
                 ),
 
                 // ) TODO: Add tags https://pub.dev/packages/textfield_tags
-                // TODO: Fix cook step input validation
                 // TODO: Add serving size input
               ],
             ),

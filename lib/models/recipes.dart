@@ -15,6 +15,10 @@ class Recipes extends ChangeNotifier {
     recipes = <Recipe>[];
   }
 
+  Recipe getRecipeById(String id) {
+    return recipes.firstWhere((element) => element.id == id);
+  }
+
   void addRecipe(Recipe recipe) {
     recipes.add(recipe);
     notifyListeners();

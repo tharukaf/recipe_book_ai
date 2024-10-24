@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:recipe_book_ai/models/cooking_step.dart';
 import 'package:recipe_book_ai/models/ingredient.dart';
 import 'package:recipe_book_ai/models/recipe.dart';
@@ -24,30 +25,28 @@ class RecipeDetailScreen extends StatefulWidget {
 }
 
 class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
-  Recipe? recipe;
   int tabIndex = 0;
 
   void handleAddNewIngredient(Ingredient ingredient) {
     setState(() {
-      recipe?.ingredients?.add(ingredient);
+      widget.recipe?.addIngredient(ingredient);
     });
   }
 
   void handleAddNewCookStep(CookingStep step) {
     setState(() {
-      recipe?.cookingSteps?.add(step);
+      widget.recipe?.addCookingStep(step);
     });
   }
 
   @override
   void initState() {
     super.initState();
-    recipe = widget.recipe;
   }
 
   void changeCheckboxValue(int index, bool? value) {
     setState(() {
-      recipe!.ingredients![index].isDone = value!;
+      widget.recipe?.ingredients![index].isDone = value!;
     });
   }
 
@@ -55,13 +54,13 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   Widget build(BuildContext context) {
     const int tabsCount = 2;
     final newIngredientDialog = NewIngredientDialog(
-      ingredientIndex: recipe!.ingredients!.length,
-      recipe: recipe!,
+      ingredientIndex: widget.recipe!.ingredients!.length,
+      recipe: widget.recipe!,
       handleAddNewIngredient: handleAddNewIngredient,
     );
     final newCookingStepDialog = NewCookingStepDialog(
-        stepIndex: recipe!.cookingSteps!.length,
-        recipe: recipe!,
+        stepIndex: widget.recipe!.cookingSteps!.length,
+        recipe: widget.recipe!,
         handleAddNewCookStep: handleAddNewCookStep);
     return DefaultTabController(
       initialIndex: 0,
@@ -72,38 +71,46 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
             tabIndex = index;
           });
         },
-        child: Scaffold(
-          floatingActionButton:
-              tabIndex == 0 ? newIngredientDialog : newCookingStepDialog,
-          appBar: AppBar(
-            title: Text(widget.isNewRecipe ? 'Add New Recipe' : recipe!.title,
-                style: GoogleFonts.deliusSwashCaps()),
-            notificationPredicate: (ScrollNotification notification) {
-              return notification.depth == 1;
-            },
-            scrolledUnderElevation: 4.0,
-            shadowColor: Theme.of(context).shadowColor,
-            bottom: TabBar(
-              tabs: <Widget>[
-                Tab(
-                  icon: const Icon(Icons.shopping_cart),
-                  text: titles[0],
-                ),
-                Tab(
-                  icon: const Icon(Icons.soup_kitchen),
-                  text: titles[1],
-                ),
-              ],
+        child: ChangeNotifierProvider(
+          create: (context) => widget.recipe!,
+          child: Scaffold(
+            floatingActionButton:
+                tabIndex == 0 ? newIngredientDialog : newCookingStepDialog,
+            appBar: AppBar(
+              title: Text(
+                  widget.isNewRecipe ? 'Add New Recipe' : widget.recipe!.title,
+                  style: GoogleFonts.deliusSwashCaps()),
+              notificationPredicate: (ScrollNotification notification) {
+                return notification.depth == 1;
+              },
+              scrolledUnderElevation: 4.0,
+              shadowColor: Theme.of(context).shadowColor,
+              bottom: TabBar(
+                tabs: <Widget>[
+                  Tab(
+                    icon: const Icon(Icons.shopping_cart),
+                    text: titles[0],
+                  ),
+                  Tab(
+                    icon: const Icon(Icons.soup_kitchen),
+                    text: titles[1],
+                  ),
+                ],
+              ),
             ),
+            body: TabBarView(children: [
+              RecipePrepItems(
+                  recipe: widget.recipe!,
+                  isNewRecipe: widget.isNewRecipe,
+                  changeCheckboxValue: changeCheckboxValue,
+                  ingredientList: widget.recipe!.ingredients!),
+              RecipeCookItems(
+                cookingSteps: widget.recipe!.cookingSteps!,
+                handleAddNewCookStep: handleAddNewCookStep,
+                recipe: widget.recipe!,
+              ),
+            ]),
           ),
-          body: TabBarView(children: [
-            RecipePrepItems(
-                recipe: recipe!,
-                isNewRecipe: widget.isNewRecipe,
-                changeCheckboxValue: changeCheckboxValue,
-                ingredientList: recipe!.ingredients!),
-            RecipeCookItems(cookingSteps: recipe!.cookingSteps!),
-          ]),
         ),
       ),
     );

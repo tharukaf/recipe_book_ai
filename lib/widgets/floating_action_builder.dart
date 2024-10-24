@@ -25,7 +25,7 @@ class FloatingActionBuilder extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AddRecipeScreen(),
+                builder: (context) => const AddRecipeScreen(),
               ),
             );
           },
@@ -39,7 +39,7 @@ class FloatingActionBuilder extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AddRecipeScreen(),
+                builder: (context) => const AddRecipeScreen(),
               ),
             );
           },

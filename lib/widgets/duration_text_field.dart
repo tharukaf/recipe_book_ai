@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class DurationTextField extends StatelessWidget {
+  int? duration = 0;
   final String? labelText;
   final void Function(String)? handleChangeDuration;
 
-  const DurationTextField({
+  DurationTextField({
     super.key,
+    this.duration,
     required this.labelText,
     required this.handleChangeDuration,
   });
@@ -17,6 +20,9 @@ class DurationTextField extends StatelessWidget {
       child: SizedBox(
         width: 50,
         child: TextField(
+          controller: TextEditingController(
+            text: duration.toString(),
+          ),
           keyboardType: TextInputType.number,
           onChanged: handleChangeDuration,
           decoration: InputDecoration(

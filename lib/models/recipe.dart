@@ -1,7 +1,8 @@
 import 'package:recipe_book_ai/models/cooking_step.dart';
 import 'package:recipe_book_ai/models/ingredient.dart';
+import 'package:flutter/material.dart';
 
-class Recipe {
+class Recipe extends ChangeNotifier {
   String id;
   String title;
   String? description;
@@ -22,10 +23,12 @@ class Recipe {
 
   void addIngredient(Ingredient ingredient) {
     ingredients!.add(ingredient);
+    notifyListeners();
   }
 
   void addCookingStep(CookingStep cookingStep) {
     cookingSteps!.add(cookingStep);
+    notifyListeners();
   }
 
   void updateIngredient(Ingredient ingredient) {
@@ -34,6 +37,7 @@ class Recipe {
     if (index != -1) {
       ingredients![index] = ingredient;
     }
+    notifyListeners();
   }
 
   void updateCookingStep(CookingStep cookingStep) {
@@ -42,13 +46,22 @@ class Recipe {
     if (index != -1) {
       cookingSteps![index] = cookingStep;
     }
+    notifyListeners();
   }
 
   void removeIngredient(Ingredient ingredient) {
     ingredients!.remove(ingredient);
+    for (var i = 0; i < ingredients!.length; i++) {
+      ingredients![i].id = i + 1;
+    }
+    notifyListeners();
   }
 
   void removeCookingStep(CookingStep cookingStep) {
     cookingSteps!.remove(cookingStep);
+    for (var i = 0; i < cookingSteps!.length; i++) {
+      cookingSteps![i].stepNumber = i + 1;
+    }
+    notifyListeners();
   }
 }
