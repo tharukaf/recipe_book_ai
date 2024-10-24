@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/widgets/recipe_detail_screen.dart';
-import 'package:recipe_book_ai/utils/recipe_models.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 class RecipleListTile extends StatelessWidget {

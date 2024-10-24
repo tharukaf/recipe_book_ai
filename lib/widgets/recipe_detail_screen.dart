@@ -1,7 +1,9 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:recipe_book_ai/utils/recipe_models.dart';
+import 'package:recipe_book_ai/models/cooking_step.dart';
+import 'package:recipe_book_ai/models/ingredient.dart';
+import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/utils/titles.dart';
 import 'package:recipe_book_ai/widgets/add_new_ingredient.dart';
 import 'package:recipe_book_ai/widgets/recipe_cook_items.dart';

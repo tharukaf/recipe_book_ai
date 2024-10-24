@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nanoid/nanoid.dart';
-import 'package:recipe_book_ai/utils/recipe_models.dart';
+import 'package:recipe_book_ai/models/recipe.dart';
+import 'package:recipe_book_ai/models/cooking_step.dart';
+import 'package:recipe_book_ai/models/ingredient.dart';
 import 'package:recipe_book_ai/widgets/recipe_detail_screen.dart';
 
 // ignore: must_be_immutable

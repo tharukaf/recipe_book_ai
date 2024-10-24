@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_book_ai/utils/recipe_models.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:recipe_book_ai/models/cooking_step.dart';
 
 class RecipePrepItem extends StatelessWidget {
   const RecipePrepItem({

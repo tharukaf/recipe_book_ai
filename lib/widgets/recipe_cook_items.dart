@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_book_ai/utils/recipe_models.dart';
+import 'package:recipe_book_ai/models/ingredient.dart';
+
 import 'package:recipe_book_ai/widgets/recipe_cook_item.dart';
 import 'package:recipe_book_ai/widgets/responsive_layout.dart';
 

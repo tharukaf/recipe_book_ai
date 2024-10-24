@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_alert/flutter_platform_alert.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:recipe_book_ai/models/ingredient.dart';
 import 'package:recipe_book_ai/utils/duration.dart';
-import 'package:recipe_book_ai/utils/recipe_models.dart';
 
 class RecipeCookItem extends StatefulWidget {
   final CookingStep cookingStep;

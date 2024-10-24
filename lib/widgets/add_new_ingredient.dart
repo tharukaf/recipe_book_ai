@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:recipe_book_ai/models/cooking_step.dart';
+import 'package:recipe_book_ai/models/ingredient.dart';
+import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/utils/dropdown_unit_items.dart';
-import 'package:recipe_book_ai/utils/recipe_models.dart';
+
 import 'package:recipe_book_ai/widgets/duration_text_field.dart';
 // import 'package:textfield_tags/textfield_tags.dart';
 

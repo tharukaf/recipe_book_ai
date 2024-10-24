@@ -1,5 +1,7 @@
-import 'package:recipe_book_ai/utils/recipe_models.dart';
 import 'package:nanoid/nanoid.dart';
+import 'package:recipe_book_ai/models/recipe.dart';
+import 'package:recipe_book_ai/models/cooking_step.dart';
+import 'package:recipe_book_ai/models/ingredient.dart';
 
 final mockRecipes = <Recipe>[
   Recipe(
