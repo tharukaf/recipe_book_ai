@@ -22,11 +22,7 @@ final mockRecipes = <Recipe>[
       Ingredient(
           id: 4, name: 'Pancetta', quantity: 100, unit: 'g', isDone: false),
       Ingredient(
-          id: 5,
-          name: 'Black pepper',
-          quantity: 0,
-          unit: 'to taste',
-          isDone: false),
+          id: 5, name: 'Black pepper', quantity: 5, unit: 'g', isDone: false),
     ],
     cookingSteps: [
       CookingStep(
@@ -76,7 +72,7 @@ final mockRecipes = <Recipe>[
   Recipe(
     id: nanoid(),
     title: 'Chocolate Cake',
-    description: 'A rich and moist chocolate cake',
+    description: 'A rich and tender chocolate cake',
     imagePath: 'assets/images/chocolate_cake.jpg',
     ingredients: [
       Ingredient(id: 1, name: 'Flour', quantity: 200, unit: 'g', isDone: false),

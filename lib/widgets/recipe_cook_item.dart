@@ -44,7 +44,6 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
 
   @override
   Widget build(BuildContext context) {
-    countdown = widget.cookingStep.duration.inSeconds;
     duration['hours'] = widget.cookingStep.duration.inHours;
     duration['mins'] = widget.cookingStep.duration.inMinutes.remainder(60);
     duration['secs'] = widget.cookingStep.duration.inSeconds.remainder(60);
@@ -287,6 +286,7 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
                           Timer.periodic(const Duration(seconds: 1), (timer) {
                             mounted
                                 ? setState(() {
+                                    print(timer.tick);
                                     countdown =
                                         widget.cookingStep.duration.inSeconds -
                                             timer.tick;
@@ -300,7 +300,11 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    title: const Text('Timer Finished'),
+                                    title: Text('Timer Finished',
+                                        style: GoogleFonts.deliusSwashCaps()),
+                                    content: Text(
+                                        'The timer for cooking step ${widget.cookingStep.stepNumber} is done!',
+                                        style: GoogleFonts.deliusSwashCaps()),
                                     actions: <Widget>[
                                       TextButton(
                                         child: const Text('OK'),
