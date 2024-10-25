@@ -16,6 +16,7 @@ class AddRecipeScreen extends StatelessWidget {
       recipe: Recipe(
         id: nanoid(),
         title: '',
+        rating: 0,
         description: '',
         imagePath: '',
         ingredients: <Ingredient>[],

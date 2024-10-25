@@ -29,12 +29,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var recipes = Recipes(mockRecipes);
 
-  // handleAddRecipe(Recipe recipe) {
-  //   setState(() {
-  //     recipes.addRecipe(recipe);
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     const String assetName = 'assets/svg/google-gemini-icon.svg';

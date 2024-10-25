@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/models/recipes.dart';
 
+import 'package:recipe_book_ai/widgets/recipe_rating_widget.dart';
+
 class EditRecipeDetailDialog extends StatefulWidget {
   final Recipe recipe;
   final bool isNewRecipe;
@@ -73,6 +75,13 @@ class _EditRecipeDetailDialogState extends State<EditRecipeDetailDialog> {
                     ),
                   )),
             ),
+            RecipeRatingWidget(
+                recipe: widget.recipe,
+                handleRatingChange: (rating) {
+                  setState(() {
+                    widget.recipe.updateRating(rating);
+                  });
+                }),
           ],
         ),
       ),

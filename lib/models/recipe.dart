@@ -7,6 +7,7 @@ class Recipe extends ChangeNotifier {
   String title;
   String? description;
   String? imagePath;
+  double? rating;
   List<String>? tags;
   final List<Ingredient>? ingredients;
   final List<CookingStep>? cookingSteps;
@@ -16,10 +17,16 @@ class Recipe extends ChangeNotifier {
     required this.title,
     this.description,
     this.imagePath,
+    this.rating,
     this.ingredients,
     this.cookingSteps,
     this.tags,
   });
+
+  void updateRating(double newRating) {
+    rating = newRating;
+    notifyListeners();
+  }
 
   void addIngredient(Ingredient ingredient) {
     ingredients!.add(ingredient);

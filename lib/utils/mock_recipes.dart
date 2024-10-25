@@ -40,10 +40,12 @@ final mockRecipes = <Recipe>[
       CookingStep(stepNumber: 4, description: 'Combine all ingredients.'),
     ],
     tags: ['Pasta', 'Italian', 'Savory'],
+    rating: 3.5,
   ),
   Recipe(
     id: nanoid(),
     title: 'Chicken Curry',
+    rating: 3.8,
     description: 'A spicy and flavorful chicken curry',
     imagePath: 'assets/images/chicken_curry.jpg',
     ingredients: [
@@ -72,6 +74,7 @@ final mockRecipes = <Recipe>[
   Recipe(
     id: nanoid(),
     title: 'Chocolate Cake',
+    rating: 5,
     description: 'A rich and tender chocolate cake',
     imagePath: 'assets/images/chocolate_cake.jpg',
     ingredients: [
