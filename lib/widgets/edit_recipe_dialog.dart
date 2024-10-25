@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/models/recipes.dart';
-
+import 'package:recipe_book_ai/widgets/editable_chip_field.dart';
 import 'package:recipe_book_ai/widgets/recipe_rating_widget.dart';
 
 class EditRecipeDetailDialog extends StatefulWidget {
@@ -75,13 +75,17 @@ class _EditRecipeDetailDialogState extends State<EditRecipeDetailDialog> {
                     ),
                   )),
             ),
-            RecipeRatingWidget(
-                recipe: widget.recipe,
-                handleRatingChange: (rating) {
-                  setState(() {
-                    widget.recipe.updateRating(rating);
-                  });
-                }),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              child: RecipeRatingWidget(
+                  recipe: widget.recipe,
+                  handleRatingChange: (rating) {
+                    setState(() {
+                      widget.recipe.updateRating(rating);
+                    });
+                  }),
+            ),
+            EditableChipField(recipe: widget.recipe),
           ],
         ),
       ),

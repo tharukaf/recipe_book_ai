@@ -23,6 +23,11 @@ class Recipe extends ChangeNotifier {
     this.tags,
   });
 
+  void addTag(String tag) {
+    tags!.add(tag);
+    notifyListeners();
+  }
+
   void updateRating(double newRating) {
     rating = newRating;
     notifyListeners();

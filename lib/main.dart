@@ -10,6 +10,7 @@ import 'package:recipe_book_ai/widgets/responsive_layout.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 // TODO: Add localstore package functionality
+// TODO: Add AI recipe addition functionality
 
 void main() {
   runApp(

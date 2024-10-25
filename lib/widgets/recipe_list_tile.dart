@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:recipe_book_ai/models/recipe.dart';
+import 'package:recipe_book_ai/models/recipes.dart';
 import 'package:recipe_book_ai/widgets/recipe_detail_screen.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -23,6 +25,36 @@ class RecipleListTile extends StatelessWidget {
               recipe: recipe,
               isNewRecipe: false,
             ),
+          ),
+        );
+      },
+      onLongPress: () {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Delete Recipe?',
+                style: GoogleFonts.deliusSwashCaps(fontSize: 20)),
+            content: Text('Are you sure you want to delete this recipe?',
+                style: GoogleFonts.deliusSwashCaps()),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Provider.of<Recipes>(context, listen: false)
+                      .removeRecipe(recipe);
+                },
+                child: const Text(
+                  'Delete',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            ],
           ),
         );
       },
@@ -79,6 +111,7 @@ class RecipleListTile extends StatelessWidget {
             const Spacer(),
             SizedBox(
               child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: recipe.tags!.isNotEmpty
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.end,

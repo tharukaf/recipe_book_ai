@@ -7,7 +7,6 @@ import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/utils/dropdown_unit_items.dart';
 
 import 'package:recipe_book_ai/widgets/duration_text_field.dart';
-// import 'package:textfield_tags/textfield_tags.dart';
 
 class NewIngredientDialog extends StatefulWidget {
   final Recipe recipe;
@@ -270,8 +269,8 @@ class _NewCookingStepDialogState extends State<NewCookingStepDialog> {
                   ),
                 ),
 
-                // ) TODO: Add tags https://pub.dev/packages/textfield_tags
                 // TODO: Add serving size input
+                // TODO: add recipe search
               ],
             ),
           ),
