@@ -286,7 +286,6 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
                           Timer.periodic(const Duration(seconds: 1), (timer) {
                             mounted
                                 ? setState(() {
-                                    print(timer.tick);
                                     countdown =
                                         widget.cookingStep.duration.inSeconds -
                                             timer.tick;

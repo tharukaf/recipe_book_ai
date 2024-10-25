@@ -37,7 +37,6 @@ List<Widget> getDurationString(Duration duration) {
 }
 
 String getTimerText(int countdown) {
-  print(countdown);
   if (countdown > 3600) {
     return '${getZeroPrefix(countdown ~/ 3600)}:${getZeroPrefix((countdown % 3600) ~/ 60)}:${getZeroPrefix(countdown % 60)}';
   } else if (countdown > 60) {
