@@ -4,13 +4,16 @@ import 'package:google_fonts/google_fonts.dart';
 // Gets the cooking step duration time as a Text widget
 List<Widget> getDurationString(Duration duration) {
   String durationString = '';
-  if (duration.inHours > 0) {
+  Duration remainingDuration = duration;
+  if (remainingDuration.inHours > 0) {
     durationString +=
-        '${duration.inHours}${duration.inHours == 1 ? 'hr' : 'hrs'} ';
-  } else if (duration.inMinutes > 0) {
+        '${remainingDuration.inHours}${remainingDuration.inHours == 1 ? 'hr' : 'hrs'} ';
+  }
+  remainingDuration = remainingDuration - Duration(hours: duration.inHours);
+  if (remainingDuration.inMinutes > 0) {
     durationString +=
-        '${duration.inMinutes}${duration.inMinutes == 1 ? 'min' : 'mins'} ';
-  } else if (duration.inSeconds > 0) {
+        '${remainingDuration.inMinutes}${remainingDuration.inMinutes == 1 ? 'min' : 'mins'} ';
+  } else if (duration.inSeconds % 60 > 0) {
     durationString += '${duration.inSeconds}s ';
   }
 

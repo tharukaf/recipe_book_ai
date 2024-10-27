@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_alert/flutter_platform_alert.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_book_ai/models/ingredient.dart';
@@ -10,6 +9,7 @@ import 'package:recipe_book_ai/utils/duration.dart';
 import 'package:recipe_book_ai/widgets/add_new_ingredient.dart';
 import 'package:recipe_book_ai/widgets/clickable_item.dart';
 import 'package:recipe_book_ai/widgets/duration_text_field.dart';
+import 'package:recipe_book_ai/widgets/timer_button.dart';
 
 class RecipeCookItem extends StatefulWidget {
   final CookingStep cookingStep;
@@ -38,8 +38,44 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
   };
   bool buttonPressed = false;
 
-  void playSound() async {
-    await FlutterPlatformAlert.playAlertSound();
+  void handleTimerTick(Timer timer) {
+    mounted
+        ? setState(() {
+            countdown = widget.cookingStep.duration.inSeconds - timer.tick;
+          })
+        : timer.cancel();
+  }
+
+  void resetTimer() {
+    setState(() {
+      buttonPressed = false;
+      countdown = widget.cookingStep.duration.inSeconds;
+    });
+  }
+
+  @override
+  void initState() {
+    countdown = widget.cookingStep.duration.inSeconds;
+    super.initState();
+  }
+
+  void handleChangeDuration() {
+    setState(() {
+      countdown = widget.cookingStep.duration.inSeconds;
+    });
+  }
+
+  void handleButtonPressed(bool value) {
+    setState(() {
+      buttonPressed = value;
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    countdown = 0;
+    super.dispose();
   }
 
   @override
@@ -168,6 +204,7 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
                               .getRecipeById(widget.recipe.id)
                               .updateCookingStep(widget.cookingStep);
                         });
+                        handleChangeDuration();
                       }
                     },
                     child: const Text('Save'),
@@ -273,66 +310,14 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
               ],
             ),
             widget.cookingStep.duration.inSeconds > 0
-                ? Container(
-                    margin: const EdgeInsets.only(left: 10, right: 10),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          if (buttonPressed) {
-                            return;
-                          }
-                          setState(() {
-                            buttonPressed = true;
-                          });
-                          Timer.periodic(const Duration(seconds: 1), (timer) {
-                            mounted
-                                ? setState(() {
-                                    countdown =
-                                        widget.cookingStep.duration.inSeconds -
-                                            timer.tick;
-                                  })
-                                : timer.cancel();
-                            if (timer.tick ==
-                                widget.cookingStep.duration.inSeconds) {
-                              timer.cancel();
-                              playSound();
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text('Timer Finished',
-                                        style: GoogleFonts.deliusSwashCaps()),
-                                    content: Text(
-                                        'The timer for cooking step ${widget.cookingStep.stepNumber} is done!',
-                                        style: GoogleFonts.deliusSwashCaps()),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: const Text('OK'),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                              setState(() {
-                                buttonPressed = false;
-                                countdown =
-                                    widget.cookingStep.duration.inSeconds;
-                              });
-                            }
-                          });
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 2, vertical: 3),
-                          child: Column(
-                            children: [
-                              const Text('Start Timer'),
-                              Text(getTimerText(countdown)),
-                            ],
-                          ),
-                        )),
+                ? TimerButton(
+                    cookingStep: widget.cookingStep,
+                    handleTimerTick: handleTimerTick,
+                    resetTimer: resetTimer,
+                    countdown: countdown,
+                    buttonPressed: buttonPressed,
+                    handleButtonPressed: handleButtonPressed,
+                    mounted: mounted,
                   )
                 : const Text(''),
           ],
