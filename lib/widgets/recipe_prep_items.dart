@@ -28,13 +28,13 @@ class RecipePrepItems extends StatefulWidget {
 class _RecipePrepItemsState extends State<RecipePrepItems> {
   void handleChangePrepItem(int index, Ingredient ingredient) {
     setState(() {
-      widget.recipe.ingredients![index] = ingredient;
+      widget.recipe.ingredients[index] = ingredient;
     });
   }
 
   void handleRemovePrepItem(int index) {
     setState(() {
-      widget.recipe.ingredients!.removeAt(index);
+      widget.recipe.ingredients.removeAt(index);
     });
   }
 

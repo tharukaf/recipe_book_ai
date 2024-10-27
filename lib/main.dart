@@ -3,14 +3,15 @@ import 'dart:core';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_book_ai/models/recipes.dart';
+import 'package:recipe_book_ai/widgets/dashboard.dart';
 import 'package:recipe_book_ai/widgets/floating_action_builder.dart';
-import 'package:recipe_book_ai/widgets/recipe_list_tile.dart';
 import 'package:recipe_book_ai/utils/mock_recipes.dart';
-import 'package:recipe_book_ai/widgets/responsive_layout.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 // TODO: Add localstore package functionality
 // TODO: Add AI recipe addition functionality
+// TODO: Add serving size input
+// TODO: add recipe search
 
 void main() {
   runApp(
@@ -84,8 +85,8 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
             ),
-            body: DecoratedBox(
-              decoration: const BoxDecoration(
+            body: const DecoratedBox(
+              decoration: BoxDecoration(
                 gradient: LinearGradient(tileMode: TileMode.clamp, colors: [
                   Color.fromARGB(225, 220, 59, 119),
                   Color.fromARGB(255, 168, 130, 175),
@@ -95,20 +96,7 @@ class _MyAppState extends State<MyApp> {
               child: Center(
                 heightFactor: 2,
                 widthFactor: 5,
-                child: ResponsiveLayout(
-                  child: Consumer<Recipes>(
-                    builder: (context, recipes, child) => Container(
-                      margin: const EdgeInsets.only(top: 12),
-                      child: ListView.builder(
-                          itemCount: recipes.length,
-                          itemBuilder: (context, index) {
-                            return RecipleListTile(
-                                recipe: Provider.of<Recipes>(context)
-                                    .recipes[index]);
-                          }),
-                    ),
-                  ),
-                ),
+                child: Dashboard(),
               ),
             ),
           )),

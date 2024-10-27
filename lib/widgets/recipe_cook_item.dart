@@ -38,6 +38,18 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
   };
   bool buttonPressed = false;
 
+  @override
+  void initState() {
+    countdown = widget.cookingStep.duration.inSeconds;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    countdown = 0;
+    super.dispose();
+  }
+
   void handleTimerTick(Timer timer) {
     mounted
         ? setState(() {
@@ -46,6 +58,7 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
         : timer.cancel();
   }
 
+  // Reset timer to initial value
   void resetTimer() {
     setState(() {
       buttonPressed = false;
@@ -53,29 +66,18 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
     });
   }
 
-  @override
-  void initState() {
-    countdown = widget.cookingStep.duration.inSeconds;
-    super.initState();
-  }
-
+  // Change duration of cooking step
   void handleChangeDuration() {
     setState(() {
       countdown = widget.cookingStep.duration.inSeconds;
     });
   }
 
+  // Registers if the button is pressed for the first time
   void handleButtonPressed(bool value) {
     setState(() {
       buttonPressed = value;
     });
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    countdown = 0;
-    super.dispose();
   }
 
   @override

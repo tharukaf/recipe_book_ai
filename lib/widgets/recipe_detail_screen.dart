@@ -46,7 +46,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 
   void changeCheckboxValue(int index, bool? value) {
     setState(() {
-      widget.recipe?.ingredients![index].isDone = value!;
+      widget.recipe?.ingredients[index].isDone = value!;
     });
   }
 
@@ -54,12 +54,12 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   Widget build(BuildContext context) {
     const int tabsCount = 2;
     final newIngredientDialog = NewIngredientDialog(
-      ingredientIndex: widget.recipe!.ingredients!.length,
+      ingredientIndex: widget.recipe!.ingredients.length,
       recipe: widget.recipe!,
       handleAddNewIngredient: handleAddNewIngredient,
     );
     final newCookingStepDialog = NewCookingStepDialog(
-        stepIndex: widget.recipe!.cookingSteps!.length,
+        stepIndex: widget.recipe!.cookingSteps.length,
         recipe: widget.recipe!,
         handleAddNewCookStep: handleAddNewCookStep);
     return DefaultTabController(
@@ -103,9 +103,9 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   recipe: widget.recipe!,
                   isNewRecipe: widget.isNewRecipe,
                   changeCheckboxValue: changeCheckboxValue,
-                  ingredientList: widget.recipe!.ingredients!),
+                  ingredientList: widget.recipe!.ingredients),
               RecipeCookItems(
-                cookingSteps: widget.recipe!.cookingSteps!,
+                cookingSteps: widget.recipe!.cookingSteps,
                 handleAddNewCookStep: handleAddNewCookStep,
                 recipe: widget.recipe!,
               ),

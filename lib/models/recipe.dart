@@ -8,9 +8,9 @@ class Recipe extends ChangeNotifier {
   String? description;
   String? imagePath;
   double? rating;
-  List<String>? tags;
-  final List<Ingredient>? ingredients;
-  final List<CookingStep>? cookingSteps;
+  final List<String> tags;
+  final List<Ingredient> ingredients;
+  final List<CookingStep> cookingSteps;
 
   Recipe({
     required this.id,
@@ -18,13 +18,13 @@ class Recipe extends ChangeNotifier {
     this.description,
     this.imagePath,
     this.rating,
-    this.ingredients,
-    this.cookingSteps,
-    this.tags,
+    required this.ingredients,
+    required this.cookingSteps,
+    required this.tags,
   });
 
   void addTag(String tag) {
-    tags!.add(tag);
+    tags.add(tag);
     notifyListeners();
   }
 
@@ -34,45 +34,45 @@ class Recipe extends ChangeNotifier {
   }
 
   void addIngredient(Ingredient ingredient) {
-    ingredients!.add(ingredient);
+    ingredients.add(ingredient);
     notifyListeners();
   }
 
   void addCookingStep(CookingStep cookingStep) {
-    cookingSteps!.add(cookingStep);
+    cookingSteps.add(cookingStep);
     notifyListeners();
   }
 
   void updateIngredient(Ingredient ingredient) {
     final index =
-        ingredients!.indexWhere((element) => element.id == ingredient.id);
+        ingredients.indexWhere((element) => element.id == ingredient.id);
     if (index != -1) {
-      ingredients![index] = ingredient;
+      ingredients[index] = ingredient;
     }
     notifyListeners();
   }
 
   void updateCookingStep(CookingStep cookingStep) {
-    final index = cookingSteps!
+    final index = cookingSteps
         .indexWhere((element) => element.stepNumber == cookingStep.stepNumber);
     if (index != -1) {
-      cookingSteps![index] = cookingStep;
+      cookingSteps[index] = cookingStep;
     }
     notifyListeners();
   }
 
   void removeIngredient(Ingredient ingredient) {
-    ingredients!.remove(ingredient);
-    for (var i = 0; i < ingredients!.length; i++) {
-      ingredients![i].id = i + 1;
+    ingredients.remove(ingredient);
+    for (var i = 0; i < ingredients.length; i++) {
+      ingredients[i].id = i + 1;
     }
     notifyListeners();
   }
 
   void removeCookingStep(CookingStep cookingStep) {
-    cookingSteps!.remove(cookingStep);
-    for (var i = 0; i < cookingSteps!.length; i++) {
-      cookingSteps![i].stepNumber = i + 1;
+    cookingSteps.remove(cookingStep);
+    for (var i = 0; i < cookingSteps.length; i++) {
+      cookingSteps[i].stepNumber = i + 1;
     }
     notifyListeners();
   }

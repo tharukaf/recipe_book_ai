@@ -18,9 +18,9 @@ class EditableChipFieldState extends State<EditableChipField> {
 
   @override
   void initState() {
-    if (widget.recipe.tags != null) {
-      _tags = widget.recipe.tags!;
-    }
+    // if (widget.recipe.tags != null) {
+    // }
+    _tags = widget.recipe.tags;
     super.initState();
   }
 
@@ -259,7 +259,7 @@ class TagInputChip extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(right: 3),
       child: InputChip(
-        labelPadding: EdgeInsets.symmetric(horizontal: 4),
+        labelPadding: const EdgeInsets.symmetric(horizontal: 4),
         key: ObjectKey(topping),
         label: Text(
           topping,

@@ -70,7 +70,7 @@ class RecipleListTile extends StatelessWidget {
             Colors.purple[50]!,
           ]),
         ),
-        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+        margin: const EdgeInsets.symmetric(vertical: 5),
         child: Row(
           children: [
             Column(
@@ -112,11 +112,11 @@ class RecipleListTile extends StatelessWidget {
             SizedBox(
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: recipe.tags!.isNotEmpty
+                child: recipe.tags.isNotEmpty
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          for (var tag in recipe.tags!.take(4))
+                          for (var tag in recipe.tags.take(4))
                             Container(
                               margin: const EdgeInsets.all(3),
                               padding: const EdgeInsets.symmetric(

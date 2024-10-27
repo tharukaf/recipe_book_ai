@@ -19,6 +19,7 @@ class AddRecipeScreen extends StatelessWidget {
         rating: 0,
         description: '',
         imagePath: '',
+        tags: <String>[],
         ingredients: <Ingredient>[],
         cookingSteps: <CookingStep>[],
       ),

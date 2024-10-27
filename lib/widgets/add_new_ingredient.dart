@@ -268,9 +268,6 @@ class _NewCookingStepDialogState extends State<NewCookingStepDialog> {
                     ),
                   ),
                 ),
-
-                // TODO: Add serving size input
-                // TODO: add recipe search
               ],
             ),
           ),

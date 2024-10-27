@@ -20,6 +20,7 @@ dependencies:
   provider: ^6.1.2
   nanoid: ^1.0.0
   flutter_pannable_rating_bar: ^2.7.2+1
+  searchable_listview: ^2.15.2
 
 dev_dependencies:
   flutter_test:
