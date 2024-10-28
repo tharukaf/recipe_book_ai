@@ -26,6 +26,20 @@ class RecipePrepItems extends StatefulWidget {
 }
 
 class _RecipePrepItemsState extends State<RecipePrepItems> {
+  double servingSize = 1;
+
+  void handleChangeServingSize(String operationType) {
+    setState(() {
+      if (operationType == "add") {
+        if (servingSize < 10) servingSize++;
+      } else {
+        if (servingSize > 1) {
+          servingSize--;
+        }
+      }
+    });
+  }
+
   void handleChangePrepItem(int index, Ingredient ingredient) {
     setState(() {
       widget.recipe.ingredients[index] = ingredient;
@@ -46,6 +60,40 @@ class _RecipePrepItemsState extends State<RecipePrepItems> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const Text(
+                    'Servings: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () => handleChangeServingSize("subtract"),
+                        icon: const Icon(Icons.remove),
+                      ),
+                      SizedBox(
+                        width: 20,
+                        child: Center(
+                          child: Text(
+                            servingSize.floor().toString(),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () => handleChangeServingSize("add"),
+                        icon: const Icon(Icons.add),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
             Expanded(
               child: SizedBox(
                 height: 270,
@@ -53,6 +101,7 @@ class _RecipePrepItemsState extends State<RecipePrepItems> {
                   itemCount: widget.ingredientList.length,
                   itemBuilder: (BuildContext context, int index) {
                     return RecipePrepItem(
+                        servingSize: servingSize,
                         ingredient: widget.ingredientList[index],
                         recipe: widget.recipe,
                         handleChangePrepItem: handleChangePrepItem,

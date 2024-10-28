@@ -5,7 +5,6 @@ import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/models/recipes.dart';
 import 'package:recipe_book_ai/widgets/recipe_list_tile.dart';
 import 'package:recipe_book_ai/widgets/responsive_layout.dart';
-import 'package:searchable_listview/resources/arrays.dart';
 import 'package:searchable_listview/searchable_listview.dart';
 
 class Dashboard extends StatefulWidget {

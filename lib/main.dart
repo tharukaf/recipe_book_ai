@@ -11,7 +11,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 // TODO: Add localstore package functionality
 // TODO: Add AI recipe addition functionality
 // TODO: Add serving size input
-// TODO: add recipe search
 
 void main() {
   runApp(

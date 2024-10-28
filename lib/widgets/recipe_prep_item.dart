@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe_book_ai/models/cooking_step.dart';
 import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/utils/dropdown_unit_items.dart';
+import 'package:recipe_book_ai/utils/servings.dart';
 import 'package:recipe_book_ai/widgets/clickable_item.dart';
 
 class RecipePrepItem extends StatelessWidget {
@@ -12,11 +13,13 @@ class RecipePrepItem extends StatelessWidget {
     required this.handleChangePrepItem,
     required this.handleRemovePrepItem,
     required this.index,
+    required this.servingSize,
     required this.ingredient,
     required this.changeCheckboxValue,
   });
 
   final Recipe recipe;
+  final double servingSize;
   final void Function(int, Ingredient) handleChangePrepItem;
   final void Function(int) handleRemovePrepItem;
   final int index;
@@ -190,7 +193,15 @@ class RecipePrepItem extends StatelessWidget {
                       : const Color.fromARGB(246, 255, 192, 239),
                 ),
                 child: Text(
-                  '${ingredient.quantity % 1 == 0 ? ingredient.quantity.floor() : ingredient.quantity} ${ingredient.unit}',
+                  // '${(ingredient.quantity * servingSize) % 1 == 0 ? (ingredient.quantity * servingSize).floor() : (ingredient.quantity * servingSize).toStringAsFixed(3)} ${() {
+                  //   if ((ingredient.unit == 'g' || ingredient.unit == 'ml') &&
+                  //       ingredient.quantity * servingSize > 1000) {
+                  //     return ingredient.unit == 'g' ? 'kg' : 'l';
+                  //   } else {
+                  //     return ingredient.unit;
+                  //   }
+                  // }()}',
+                  getIngredientQuantityString(servingSize, ingredient),
                   style: const TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.w900,
