@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe_book_ai/models/cooking_step.dart';
 import 'package:recipe_book_ai/models/recipe.dart';
-import 'package:recipe_book_ai/utils/dropdown_unit_items.dart';
 import 'package:recipe_book_ai/utils/servings.dart';
 import 'package:recipe_book_ai/widgets/clickable_item.dart';
+import 'package:recipe_book_ai/widgets/dialogs/prep_item_dialogs.dart';
 
 class RecipePrepItem extends StatelessWidget {
   const RecipePrepItem({
@@ -41,128 +41,18 @@ class RecipePrepItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClickableItem(
-      onPressed: () {
-        showDialog<void>(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text(
-                'Edit Ingredient',
-                style: GoogleFonts.deliusSwashCaps(fontWeight: FontWeight.bold),
-              ),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(
-                    width: 200,
-                    child: TextField(
-                      controller: TextEditingController(text: ingredient.name),
-                      onChanged: (value) {
-                        ingredient.name = value;
-                      },
-                      decoration: InputDecoration(
-                        labelStyle: GoogleFonts.deliusSwashCaps(),
-                        labelText: 'Enter the ingredient',
-                      ),
-                    ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: SizedBox(
-                          width: 100,
-                          child: TextField(
-                            controller: TextEditingController(
-                                text: ingredient.quantity.toString()),
-                            onChanged: (value) {
-                              ingredient.quantity = double.tryParse(value) ?? 0;
-                            },
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                              height: 2,
-                            ),
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelStyle: GoogleFonts.deliusSwashCaps(),
-                              labelText: 'Quantity',
-                            ),
-                          ),
-                        ),
-                      ),
-                      DropdownButton(
-                        value: ingredient.unit,
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        onChanged: (value) {
-                          ingredient.unit = value.toString();
-                        },
-                        items: dropdownMenuItems,
-                      )
-                    ],
-                  )
-                ],
-              ),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    handleRemovePrepItem(index);
-                    Navigator.of(context).pop();
-                  },
-                  child:
-                      const Text('Delete', style: TextStyle(color: Colors.red)),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Cancel'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    if (ingredient.name.isNotEmpty && ingredient.quantity > 0) {
-                      Navigator.of(context).pop();
-                      handleChangePrepItem(index, ingredient);
-                    }
-                  },
-                  child: const Text('Edit'),
-                ),
-              ],
-            );
-          },
-        );
-      },
-      onLongPress: () {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text(
-                'Delete Ingredient',
-                style: GoogleFonts.deliusSwashCaps(),
-              ),
-              content: Text('Are you sure you want to delete this ingredient?',
-                  style: GoogleFonts.deliusSwashCaps()),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('Cancel'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                TextButton(
-                  child:
-                      const Text('Delete', style: TextStyle(color: Colors.red)),
-                  onPressed: () {
-                    handleRemovePrepItem(index);
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      },
+      onPressed: () => prepItemShortPressDialog(
+        context,
+        ingredient,
+        handleRemovePrepItem,
+        handleChangePrepItem,
+        index,
+      ),
+      onLongPress: () => prepItemLongPressDialog(
+        context,
+        handleRemovePrepItem,
+        index,
+      ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6),
         child: Container(
@@ -193,14 +83,6 @@ class RecipePrepItem extends StatelessWidget {
                       : const Color.fromARGB(246, 255, 192, 239),
                 ),
                 child: Text(
-                  // '${(ingredient.quantity * servingSize) % 1 == 0 ? (ingredient.quantity * servingSize).floor() : (ingredient.quantity * servingSize).toStringAsFixed(3)} ${() {
-                  //   if ((ingredient.unit == 'g' || ingredient.unit == 'ml') &&
-                  //       ingredient.quantity * servingSize > 1000) {
-                  //     return ingredient.unit == 'g' ? 'kg' : 'l';
-                  //   } else {
-                  //     return ingredient.unit;
-                  //   }
-                  // }()}',
                   getIngredientQuantityString(servingSize, ingredient),
                   style: const TextStyle(
                     color: Colors.black54,

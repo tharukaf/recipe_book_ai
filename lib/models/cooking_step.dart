@@ -13,4 +13,16 @@ class Ingredient {
     required this.unit,
     required this.isDone,
   });
+
+  // Ingredient to Json
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'quantity': quantity,
+      'unit': unit,
+      'preparation': preparation,
+      'isDone': isDone,
+    };
+  }
 }

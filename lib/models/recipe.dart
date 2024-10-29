@@ -28,6 +28,22 @@ class Recipe extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Recipe to Json
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'imagePath': imagePath,
+      'rating': rating,
+      'tags': tags,
+      'ingredients':
+          ingredients.map((ingredient) => ingredient.toJson()).toList(),
+      'cookingSteps':
+          cookingSteps.map((cookingStep) => cookingStep.toJson()).toList(),
+    };
+  }
+
   void updateRating(double newRating) {
     rating = newRating;
     notifyListeners();

@@ -7,10 +7,10 @@ import 'package:recipe_book_ai/widgets/dashboard.dart';
 import 'package:recipe_book_ai/widgets/floating_action_builder.dart';
 import 'package:recipe_book_ai/utils/mock_recipes.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:localstore/localstore.dart';
 
 // TODO: Add localstore package functionality
 // TODO: Add AI recipe addition functionality
-// TODO: Add serving size input
 
 void main() {
   runApp(

@@ -12,6 +12,7 @@ class FloatingActionBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpeedDial(
+      // icon: Icons.add_a_photo,
       overlayColor: Colors.black,
       activeBackgroundColor: Colors.grey[200],
       animatedIcon: AnimatedIcons.menu_close,
@@ -47,7 +48,7 @@ class FloatingActionBuilder extends StatelessWidget {
       ],
       backgroundColor: const Color.fromARGB(255, 255, 198, 217),
       shape: const CircleBorder(),
-      child: const Icon(Icons.add),
+      // child: const Icon(Icons.add),
     );
   }
 }

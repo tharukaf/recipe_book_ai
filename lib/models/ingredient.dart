@@ -8,4 +8,13 @@ class CookingStep {
     required this.description,
     this.duration = Duration.zero,
   });
+
+  // CookingStep to Json
+  Map<String, dynamic> toJson() {
+    return {
+      'stepNumber': stepNumber,
+      'description': description,
+      'duration': duration.inMinutes,
+    };
+  }
 }

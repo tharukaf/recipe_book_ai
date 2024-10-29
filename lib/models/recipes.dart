@@ -36,4 +36,9 @@ class Recipes extends ChangeNotifier {
     recipes.remove(recipe);
     notifyListeners();
   }
+
+  // Recipes to Json
+  List<Map<String, dynamic>> toJson() {
+    return recipes.map((recipe) => recipe.toJson()).toList();
+  }
 }
