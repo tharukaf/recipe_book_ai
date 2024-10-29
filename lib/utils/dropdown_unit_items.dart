@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 List<DropdownMenuItem> dropdownMenuItems = const <DropdownMenuItem>[
-  DropdownMenuItem(value: '', child: Text('')),
+  DropdownMenuItem(value: '', child: Text('Unit')),
   DropdownMenuItem(value: 'g', child: Text('g')),
   DropdownMenuItem(value: 'kg', child: Text('kg')),
   DropdownMenuItem(value: 'ml', child: Text('ml')),
@@ -15,5 +15,3 @@ List<DropdownMenuItem> dropdownMenuItems = const <DropdownMenuItem>[
   DropdownMenuItem(value: 'oz', child: Text('oz')),
   DropdownMenuItem(value: 'lb', child: Text('lb'))
 ];
-
-// enum Unit {x , g, kg, ml, l, tsp, tbsp, cup, pt, qt, gal, oz, lb }

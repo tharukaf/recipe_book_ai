@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe_book_ai/models/cooking_step.dart';
 import 'package:recipe_book_ai/models/recipe.dart';
-import 'package:recipe_book_ai/widgets/edit_recipe_dialog.dart';
+import 'package:recipe_book_ai/widgets/dialogs/edit_recipe_details_dialog.dart';
 import 'package:recipe_book_ai/widgets/recipe_prep_item.dart';
 import 'package:recipe_book_ai/widgets/responsive_layout.dart';
 

@@ -7,7 +7,7 @@ import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/models/recipes.dart';
 import 'package:recipe_book_ai/utils/duration.dart';
 import 'package:recipe_book_ai/widgets/clickable_item.dart';
-import 'package:recipe_book_ai/widgets/dialogs/cook_item_dialogs.dart';
+import 'package:recipe_book_ai/widgets/dialogs/edit_cook_item_dialog.dart';
 import 'package:recipe_book_ai/widgets/timer_button.dart';
 
 class RecipeCookItem extends StatefulWidget {

@@ -6,7 +6,8 @@ import 'package:recipe_book_ai/models/cooking_step.dart';
 import 'package:recipe_book_ai/models/ingredient.dart';
 import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/utils/titles.dart';
-import 'package:recipe_book_ai/widgets/add_new_ingredient.dart';
+import 'package:recipe_book_ai/widgets/dialogs/add_cook_item_dialog.dart';
+import 'package:recipe_book_ai/widgets/dialogs/add_prep_item_dialog.dart';
 import 'package:recipe_book_ai/widgets/recipe_cook_items.dart';
 import 'package:recipe_book_ai/widgets/recipe_prep_items.dart';
 
@@ -53,12 +54,12 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   @override
   Widget build(BuildContext context) {
     const int tabsCount = 2;
-    final newIngredientDialog = NewIngredientDialog(
+    final newIngredientDialog = NewPrepItemDialog(
       ingredientIndex: widget.recipe!.ingredients.length,
       recipe: widget.recipe!,
       handleAddNewIngredient: handleAddNewIngredient,
     );
-    final newCookingStepDialog = NewCookingStepDialog(
+    final newCookingStepDialog = NewCookStepDialog(
         stepIndex: widget.recipe!.cookingSteps.length,
         recipe: widget.recipe!,
         handleAddNewCookStep: handleAddNewCookStep);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:recipe_book_ai/widgets/add_new_ingredient.dart';
+import 'package:recipe_book_ai/widgets/dialogs/add_cook_item_dialog.dart';
 import 'package:recipe_book_ai/widgets/duration_text_field.dart';
 
 void cookItemLongPressDialog(BuildContext context, widget) {

@@ -1,140 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:recipe_book_ai/models/cooking_step.dart';
 import 'package:recipe_book_ai/models/ingredient.dart';
 import 'package:recipe_book_ai/models/recipe.dart';
-import 'package:recipe_book_ai/utils/dropdown_unit_items.dart';
-
 import 'package:recipe_book_ai/widgets/duration_text_field.dart';
 
-class NewIngredientDialog extends StatefulWidget {
-  final Recipe recipe;
-  final void Function(Ingredient) handleAddNewIngredient;
-  final int ingredientIndex;
-
-  const NewIngredientDialog({
-    super.key,
-    required this.ingredientIndex,
-    required this.recipe,
-    required this.handleAddNewIngredient,
-  });
-
-  @override
-  State<NewIngredientDialog> createState() => _NewIngredientDialogState();
-}
-
-class _NewIngredientDialogState extends State<NewIngredientDialog> {
-  Ingredient? ingredient;
-
-  @override
-  Widget build(BuildContext context) {
-    ingredient = Ingredient(
-      id: 0,
-      name: '',
-      quantity: 0,
-      unit: '',
-      isDone: false,
-    );
-    ingredient?.id = widget.ingredientIndex;
-
-    return FloatingActionButton(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      foregroundColor: const Color(0xFFFFFFFF),
-      shape: const CircleBorder(),
-      onPressed: () => _dialogBuilder(context),
-      child: const Icon(Icons.add),
-    );
-  }
-
-  Future<void> _dialogBuilder(BuildContext context) {
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            'Add Ingredient',
-            style: GoogleFonts.deliusSwashCaps(fontWeight: FontWeight.bold),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(
-                width: 200,
-                child: TextField(
-                  onChanged: (value) {
-                    ingredient?.name = value;
-                  },
-                  decoration: InputDecoration(
-                    labelStyle: GoogleFonts.deliusSwashCaps(),
-                    labelText: 'Enter the ingredient',
-                  ),
-                ),
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: SizedBox(
-                      width: 100,
-                      child: TextField(
-                        onChanged: (value) {
-                          ingredient?.quantity = double.tryParse(value) ?? 0;
-                        },
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          height: 2,
-                        ),
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelStyle: GoogleFonts.deliusSwashCaps(),
-                          labelText: 'Quantity',
-                        ),
-                      ),
-                    ),
-                  ),
-                  DropdownButton(
-                    value: ingredient?.unit,
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    onChanged: (value) {
-                      ingredient?.unit = value.toString();
-                    },
-                    items: dropdownMenuItems,
-                  )
-                ],
-              )
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                if (ingredient!.name.isNotEmpty && ingredient!.quantity > 0) {
-                  widget.handleAddNewIngredient(ingredient!);
-                  Navigator.of(context).pop();
-                }
-              },
-              child: const Text('Add'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class NewCookingStepDialog extends StatefulWidget {
+class NewCookStepDialog extends StatefulWidget {
   final Recipe recipe;
   final void Function(CookingStep) handleAddNewCookStep;
   final int stepIndex;
 
-  const NewCookingStepDialog({
+  const NewCookStepDialog({
     super.key,
     required this.stepIndex,
     required this.recipe,
@@ -142,7 +17,7 @@ class NewCookingStepDialog extends StatefulWidget {
   });
 
   @override
-  State<NewCookingStepDialog> createState() => _NewCookingStepDialogState();
+  State<NewCookStepDialog> createState() => _NewCookStepDialogState();
 }
 
 final boxDeco = BoxDecoration(
@@ -160,7 +35,7 @@ final boxDeco = BoxDecoration(
   borderRadius: BorderRadius.circular(10),
 );
 
-class _NewCookingStepDialogState extends State<NewCookingStepDialog> {
+class _NewCookStepDialogState extends State<NewCookStepDialog> {
   final TextEditingController stepController = TextEditingController();
 
   CookingStep? cookingStep;

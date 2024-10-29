@@ -4,7 +4,7 @@ import 'package:recipe_book_ai/models/cooking_step.dart';
 import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/utils/servings.dart';
 import 'package:recipe_book_ai/widgets/clickable_item.dart';
-import 'package:recipe_book_ai/widgets/dialogs/prep_item_dialogs.dart';
+import 'package:recipe_book_ai/widgets/dialogs/edit_prep_item_dialogs.dart';
 
 class RecipePrepItem extends StatelessWidget {
   const RecipePrepItem({

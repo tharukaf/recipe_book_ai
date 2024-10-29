@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe_book_ai/utils/dropdown_unit_items.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 void prepItemLongPressDialog(context, handleRemovePrepItem, index) {
   showDialog(
@@ -89,14 +90,22 @@ void prepItemShortPressDialog(
                     ),
                   ),
                 ),
-                DropdownButton(
-                  value: ingredient.unit,
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  onChanged: (value) {
-                    ingredient.unit = value.toString();
-                  },
-                  items: dropdownMenuItems,
-                )
+                DropdownButtonHideUnderline(
+                  child: DropdownButton2<String>(
+                    hint: const Text('Unit'),
+                    items:
+                        dropdownMenuItems.map((DropdownMenuItem<dynamic> item) {
+                      return DropdownMenuItem<String>(
+                        value: item.value.toString(),
+                        child: item.child,
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      ingredient.unit = value!;
+                    },
+                    value: ingredient.unit,
+                  ),
+                ),
               ],
             )
           ],
