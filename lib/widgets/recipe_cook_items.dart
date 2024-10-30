@@ -31,8 +31,7 @@ class _RecipeCookItemsState extends State<RecipeCookItems> {
 
   @override
   Widget build(BuildContext context) {
-    Recipe recipe =
-        Provider.of<Recipes>(context).getRecipeById(widget.recipe.id);
+    Recipe recipe = Provider.of<Recipes>(context).getRecipeById(widget.recipe);
     return ResponsiveLayout(
         child: Consumer<Recipes>(
       builder: (context, recipes, child) => Padding(
@@ -42,7 +41,7 @@ class _RecipeCookItemsState extends State<RecipeCookItems> {
           itemBuilder: (BuildContext context, int index) {
             return RecipeCookItem(
               cookingStep:
-                  recipes.getRecipeById(widget.recipe.id).cookingSteps[index],
+                  recipes.getRecipeById(widget.recipe).cookingSteps[index],
               handleAddNewCookStep: widget.handleAddNewCookStep,
               removeCookingStep: removeCookingStep,
               recipe: recipe,

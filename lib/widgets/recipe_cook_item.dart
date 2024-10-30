@@ -82,7 +82,7 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
   void handleUpdateCookStep() {
     setState(() {
       Provider.of<Recipes>(context, listen: false)
-          .getRecipeById(widget.recipe.id)
+          .getRecipeById(widget.recipe)
           .updateCookingStep(widget.cookingStep);
     });
   }

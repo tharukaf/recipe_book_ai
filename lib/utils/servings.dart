@@ -18,7 +18,7 @@ String getIngredientQuantityString(double servingSize, Ingredient ingredient) {
   quantityString += ' ';
 
   if (isKgOrL) {
-    quantityString += ingredient.unit == 'g' ? 'kg' : 'l';
+    quantityString += ingredient.unit == 'g' ? 'kg' : 'L';
   } else {
     quantityString += ingredient.unit ?? '';
   }

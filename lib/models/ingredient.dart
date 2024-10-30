@@ -10,7 +10,7 @@ class CookingStep {
   });
 
   // CookingStep to Json
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'stepNumber': stepNumber,
       'description': description,

@@ -15,8 +15,9 @@ class Recipes extends ChangeNotifier {
     recipes = <Recipe>[];
   }
 
-  Recipe getRecipeById(String id) {
-    return recipes.firstWhere((element) => element.id == id);
+  Recipe getRecipeById(Recipe recipe) {
+    return recipes.firstWhere((element) => element.id == recipe.id,
+        orElse: () => recipe);
   }
 
   void addRecipe(Recipe recipe) {
@@ -39,6 +40,6 @@ class Recipes extends ChangeNotifier {
 
   // Recipes to Json
   List<Map<String, dynamic>> toJson() {
-    return recipes.map((recipe) => recipe.toJson()).toList();
+    return recipes.map((recipe) => recipe.toMap()).toList();
   }
 }

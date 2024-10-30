@@ -1,3 +1,4 @@
+import 'package:localstore/localstore.dart';
 import 'package:recipe_book_ai/models/cooking_step.dart';
 import 'package:recipe_book_ai/models/ingredient.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class Recipe extends ChangeNotifier {
   }
 
   // Recipe to Json
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'title': title,
@@ -38,9 +39,9 @@ class Recipe extends ChangeNotifier {
       'rating': rating,
       'tags': tags,
       'ingredients':
-          ingredients.map((ingredient) => ingredient.toJson()).toList(),
+          ingredients.map((ingredient) => ingredient.toMap()).toList(),
       'cookingSteps':
-          cookingSteps.map((cookingStep) => cookingStep.toJson()).toList(),
+          cookingSteps.map((cookingStep) => cookingStep.toMap()).toList(),
     };
   }
 
@@ -91,5 +92,18 @@ class Recipe extends ChangeNotifier {
       cookingSteps[i].stepNumber = i + 1;
     }
     notifyListeners();
+  }
+}
+
+extension ExtRecipe on Recipe {
+  // Save the recipe to the database
+  Future save() async {
+    final db = Localstore.instance;
+    return db.collection('recipes').doc(id).set(toMap());
+  }
+
+  Future delete() async {
+    final db = Localstore.instance;
+    return db.collection('recipes').doc(id).delete();
   }
 }

@@ -32,11 +32,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    const String assetName = 'assets/svg/google-gemini-icon.svg';
-    final Widget svg = SvgPicture.asset(
-      assetName,
-      width: 20,
-    );
     return ChangeNotifierProvider(
       create: (context) => recipes,
       child: MaterialApp(
@@ -44,61 +39,89 @@ class _MyAppState extends State<MyApp> {
           theme: ThemeData(
             primarySwatch: Colors.purple,
           ),
-          home: Scaffold(
-            floatingActionButton: FloatingActionBuilder(svg: svg),
-            appBar: AppBar(
-              backgroundColor: const Color.fromARGB(225, 220, 59, 119),
-              title: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Recipe Book ',
-                      style: GoogleFonts.deliusSwashCaps(
-                        fontSize: 36,
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                      ),
-                    ),
-                    const Text(
-                      'AI',
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 10),
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                        border: Border.all(
-                          width: 1,
-                          color: const Color.fromARGB(255, 255, 255, 255),
-                        ),
-                      ),
-                      child: svg,
-                    ),
-                  ],
+          home: const MainScreen()),
+    );
+  }
+}
+
+class MainScreen extends StatefulWidget {
+  const MainScreen({
+    super.key,
+  });
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  final String assetName = 'assets/svg/google-gemini-icon.svg';
+  late Widget svg;
+
+  @override
+  void initState() {
+    svg = SvgPicture.asset(
+      assetName,
+      width: 20,
+    );
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      floatingActionButton: FloatingActionBuilder(svg: svg),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(225, 220, 59, 119),
+        title: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Recipe Book ',
+                style: GoogleFonts.deliusSwashCaps(
+                  fontSize: 36,
+                  color: const Color.fromARGB(255, 255, 255, 255),
                 ),
               ),
-            ),
-            body: const DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(tileMode: TileMode.clamp, colors: [
-                  Color.fromARGB(225, 220, 59, 119),
-                  Color.fromARGB(255, 168, 130, 175),
-                ]),
-                backgroundBlendMode: BlendMode.src,
+              const Text(
+                'AI',
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                ),
               ),
-              child: Center(
-                heightFactor: 2,
-                widthFactor: 5,
-                child: Dashboard(),
+              Container(
+                margin: const EdgeInsets.only(left: 10),
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                  border: Border.all(
+                    width: 1,
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                  ),
+                ),
+                child: svg,
               ),
-            ),
-          )),
+            ],
+          ),
+        ),
+      ),
+      body: const DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(tileMode: TileMode.clamp, colors: [
+            Color.fromARGB(225, 220, 59, 119),
+            Color.fromARGB(255, 168, 130, 175),
+          ]),
+          backgroundBlendMode: BlendMode.src,
+        ),
+        child: Center(
+          heightFactor: 2,
+          widthFactor: 5,
+          child: Dashboard(),
+        ),
+      ),
     );
   }
 }

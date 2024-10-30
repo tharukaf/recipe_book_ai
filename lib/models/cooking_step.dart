@@ -15,7 +15,7 @@ class Ingredient {
   });
 
   // Ingredient to Json
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'name': name,
