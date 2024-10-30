@@ -3,7 +3,6 @@ class Ingredient {
   String name;
   double quantity;
   String? unit;
-  String? preparation;
   bool isDone;
 
   Ingredient({
@@ -21,8 +20,17 @@ class Ingredient {
       'name': name,
       'quantity': quantity,
       'unit': unit,
-      'preparation': preparation,
       'isDone': isDone,
     };
+  }
+
+  factory Ingredient.fromMap(Map<String, dynamic> map) {
+    return Ingredient(
+      id: map['id'],
+      name: map['name'],
+      quantity: map['quantity'],
+      unit: map['unit'],
+      isDone: map['isDone'],
+    );
   }
 }

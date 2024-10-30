@@ -48,6 +48,7 @@ class RecipleListTile extends StatelessWidget {
                   Navigator.pop(context);
                   Provider.of<Recipes>(context, listen: false)
                       .removeRecipe(recipe);
+                  recipe.delete();
                 },
                 child: const Text(
                   'Delete',

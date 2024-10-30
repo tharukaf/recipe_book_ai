@@ -47,7 +47,10 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 
   void changeCheckboxValue(int index, bool? value) {
     setState(() {
-      widget.recipe?.ingredients[index].isDone = value!;
+      // widget.recipe?.ingredients[index].isDone = value!;
+      final ingredient = widget.recipe!.ingredients[index];
+      ingredient.isDone = value!;
+      widget.recipe?.updateIngredient(ingredient);
     });
   }
 

@@ -17,4 +17,12 @@ class CookingStep {
       'duration': duration.inMinutes,
     };
   }
+
+  factory CookingStep.fromMap(Map<String, dynamic> map) {
+    return CookingStep(
+      stepNumber: map['stepNumber'],
+      description: map['description'],
+      duration: Duration(minutes: map['duration']),
+    );
+  }
 }

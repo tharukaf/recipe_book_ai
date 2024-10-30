@@ -1,11 +1,16 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:localstore/localstore.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/models/recipes.dart';
 import 'package:recipe_book_ai/widgets/dashboard.dart';
 import 'package:recipe_book_ai/widgets/floating_action_builder.dart';
-import 'package:recipe_book_ai/utils/mock_recipes.dart';
+// import 'package:recipe_book_ai/utils/mock_recipes.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 // import 'package:localstore/localstore.dart';
 
@@ -28,7 +33,31 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var recipes = Recipes(mockRecipes);
+  final recipes = Recipes.empty();
+  final _db = Localstore.getInstance(useSupportDir: true);
+  StreamSubscription<Map<String, dynamic>>? _subscription;
+  // final _items = <String, Todo>{};
+
+  // save each recipe to localstore
+  // void saveRecipes() {
+  //   for (var recipe in mockRecipes) {
+  //     _db.collection('recipes').doc(recipe.id).set(recipe.toMap());
+  //   }
+  // }
+  //Call the saveRecipes function in the initState method of the _MyAppState class
+
+  @override
+  void initState() {
+    _subscription = _db.collection('recipes').stream.listen((event) {
+      setState(() {
+        final item = Recipe.fromMap(event);
+        // recipes.putIfAbsent(item.id, () => item);
+        recipes.addRecipe(item);
+      });
+    });
+    if (kIsWeb) _db.collection('recipes').stream.asBroadcastStream();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +70,12 @@ class _MyAppState extends State<MyApp> {
           ),
           home: const MainScreen()),
     );
+  }
+
+  @override
+  void dispose() {
+    if (_subscription != null) _subscription?.cancel();
+    super.dispose();
   }
 }
 

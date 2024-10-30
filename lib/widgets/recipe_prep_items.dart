@@ -46,9 +46,9 @@ class _RecipePrepItemsState extends State<RecipePrepItems> {
     });
   }
 
-  void handleRemovePrepItem(int index) {
+  void handleRemovePrepItem(Ingredient ingredient) {
     setState(() {
-      widget.recipe.ingredients.removeAt(index);
+      widget.recipe.removeIngredient(ingredient);
     });
   }
 
@@ -184,6 +184,7 @@ class _RecipePrepItemsState extends State<RecipePrepItems> {
                                 );
                               } else {
                                 Navigator.of(context).pop();
+                                widget.recipe.save();
                               }
                             },
                             child: Text('Save Recipe',

@@ -34,15 +34,14 @@ class _DashboardState extends State<Dashboard> {
                     color: const Color.fromARGB(255, 255, 255, 255),
                   ),
                   displaySearchIcon: false,
-                  initialList: Provider.of<Recipes>(context).recipes,
+                  initialList: Provider.of<Recipes>(context).getRecipeList(),
                   itemBuilder: (Recipe recipe) =>
                       RecipleListTile(recipe: recipe),
-                  filter: (value) => recipes.recipes
-                      .where(
-                        (element) =>
-                            element.title.toLowerCase().contains(value),
-                      )
-                      .toList(),
+                  filter: (query) => recipes.getRecipeList().where((recipe) {
+                    final title = recipe.title.toLowerCase();
+                    final search = query.toLowerCase();
+                    return title.contains(search);
+                  }).toList(),
                   emptyWidget: const EmptyView(),
                   inputDecoration: InputDecoration(
                     labelText: 'Search for recipes',

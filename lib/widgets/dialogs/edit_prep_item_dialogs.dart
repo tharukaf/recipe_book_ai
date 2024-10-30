@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/utils/dropdown_unit_items.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
-void prepItemLongPressDialog(context, handleRemovePrepItem, index) {
+void prepItemLongPressDialog(
+  Recipe recipe,
+  context,
+  handleRemovePrepItem,
+  index,
+) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -24,7 +30,7 @@ void prepItemLongPressDialog(context, handleRemovePrepItem, index) {
           TextButton(
             child: const Text('Delete', style: TextStyle(color: Colors.red)),
             onPressed: () {
-              handleRemovePrepItem(index);
+              handleRemovePrepItem(recipe.ingredients[index]);
               Navigator.of(context).pop();
             },
           ),
@@ -35,6 +41,7 @@ void prepItemLongPressDialog(context, handleRemovePrepItem, index) {
 }
 
 void prepItemShortPressDialog(
+  Recipe recipe,
   context,
   ingredient,
   handleRemovePrepItem,
@@ -113,7 +120,7 @@ void prepItemShortPressDialog(
         actions: <Widget>[
           TextButton(
             onPressed: () {
-              handleRemovePrepItem(index);
+              handleRemovePrepItem(ingredient);
               Navigator.of(context).pop();
             },
             child: const Text('Delete', style: TextStyle(color: Colors.red)),
@@ -129,6 +136,7 @@ void prepItemShortPressDialog(
               if (ingredient.name.isNotEmpty && ingredient.quantity > 0) {
                 Navigator.of(context).pop();
                 handleChangePrepItem(index, ingredient);
+                recipe.save();
               }
             },
             child: const Text('Edit'),

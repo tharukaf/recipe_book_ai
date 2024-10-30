@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/widgets/dialogs/add_cook_item_dialog.dart';
 import 'package:recipe_book_ai/widgets/duration_text_field.dart';
 
-void cookItemLongPressDialog(BuildContext context, widget) {
+void cookItemLongPressDialog(
+    BuildContext context, widget, Recipe recipe, handleRemoveCookStep) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -16,6 +18,7 @@ void cookItemLongPressDialog(BuildContext context, widget) {
             child: const Text('Cancel'),
             onPressed: () {
               Navigator.of(context).pop();
+              handleRemoveCookStep(widget.cookingStep);
             },
           ),
           TextButton(
@@ -26,7 +29,7 @@ void cookItemLongPressDialog(BuildContext context, widget) {
               ),
             ),
             onPressed: () {
-              widget.removeCookingStep(widget.cookingStep);
+              recipe.deleteCookingStep(widget.cookingStep);
               Navigator.of(context).pop();
             },
           ),
@@ -36,8 +39,8 @@ void cookItemLongPressDialog(BuildContext context, widget) {
   );
 }
 
-void cookItemShortPressDialog(BuildContext context, widget, duration,
-    handleChangeDuration, removeCookingStep, handleUpdateCookStep) {
+void cookItemShortPressDialog(BuildContext context, widget, Recipe recipe,
+    duration, handleChangeDuration, removeCookingStep, handleUpdateCookStep) {
   // Edit cooking step when clicked
   showDialog(
       context: context,
@@ -123,7 +126,7 @@ void cookItemShortPressDialog(BuildContext context, widget, duration,
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                widget.removeCookingStep(widget.cookingStep);
+                recipe.deleteCookingStep(widget.cookingStep);
                 Navigator.of(context).pop();
               },
               child: const Text(
@@ -150,6 +153,7 @@ void cookItemShortPressDialog(BuildContext context, widget, duration,
                   );
                   handleUpdateCookStep();
                   handleChangeDuration();
+                  recipe.save();
                 }
               },
               child: const Text('Save'),

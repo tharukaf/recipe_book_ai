@@ -121,6 +121,7 @@ class _NewPrepItemDialogState extends State<NewPrepItemDialog> {
               onPressed: () {
                 if (ingredient!.name.isNotEmpty && ingredient!.quantity > 0) {
                   widget.handleAddNewIngredient(ingredient!);
+                  widget.recipe.save();
                   Navigator.of(context).pop();
                 }
               },

@@ -7,21 +7,21 @@ import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/models/recipes.dart';
 import 'package:recipe_book_ai/utils/duration.dart';
 import 'package:recipe_book_ai/widgets/clickable_item.dart';
-import 'package:recipe_book_ai/widgets/dialogs/edit_cook_item_dialog.dart';
+import 'package:recipe_book_ai/widgets/dialogs/edit_cook_item_dialogs.dart';
 import 'package:recipe_book_ai/widgets/timer_button.dart';
 
 class RecipeCookItem extends StatefulWidget {
   final CookingStep cookingStep;
   final Function(CookingStep) handleAddNewCookStep;
   final Recipe recipe;
-  final Function(CookingStep) removeCookingStep;
+  final void Function(CookingStep) handleRemoveCookStep;
 
   const RecipeCookItem({
     super.key,
     required this.recipe,
     required this.cookingStep,
     required this.handleAddNewCookStep,
-    required this.removeCookingStep,
+    required this.handleRemoveCookStep,
   });
 
   @override
@@ -96,12 +96,18 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
       onPressed: () => cookItemShortPressDialog(
         context,
         widget,
+        widget.recipe,
         duration,
         handleChangeDuration,
-        widget.removeCookingStep,
+        widget.handleRemoveCookStep,
         handleUpdateCookStep,
       ),
-      onLongPress: () => cookItemLongPressDialog(context, widget),
+      onLongPress: () => cookItemLongPressDialog(
+        context,
+        widget,
+        widget.recipe,
+        widget.handleRemoveCookStep,
+      ),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.purple[100],

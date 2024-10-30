@@ -21,7 +21,7 @@ class RecipePrepItem extends StatelessWidget {
   final Recipe recipe;
   final double servingSize;
   final void Function(int, Ingredient) handleChangePrepItem;
-  final void Function(int) handleRemovePrepItem;
+  final void Function(Ingredient) handleRemovePrepItem;
   final int index;
   final Ingredient ingredient;
   final void Function(int, bool?) changeCheckboxValue;
@@ -42,6 +42,7 @@ class RecipePrepItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClickableItem(
       onPressed: () => prepItemShortPressDialog(
+        recipe,
         context,
         ingredient,
         handleRemovePrepItem,
@@ -49,6 +50,7 @@ class RecipePrepItem extends StatelessWidget {
         index,
       ),
       onLongPress: () => prepItemLongPressDialog(
+        recipe,
         context,
         handleRemovePrepItem,
         index,

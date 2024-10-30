@@ -1,4 +1,5 @@
 import 'package:localstore/localstore.dart';
+import 'package:nanoid/nanoid.dart';
 import 'package:recipe_book_ai/models/cooking_step.dart';
 import 'package:recipe_book_ai/models/ingredient.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,16 @@ class Recipe extends ChangeNotifier {
     required this.tags,
   });
 
+  Recipe.empty()
+      : id = nanoid(),
+        title = '',
+        description = '',
+        imagePath = '',
+        rating = 0.0,
+        ingredients = [],
+        cookingSteps = [],
+        tags = [];
+
   void addTag(String tag) {
     tags.add(tag);
     notifyListeners();
@@ -45,19 +56,37 @@ class Recipe extends ChangeNotifier {
     };
   }
 
+  factory Recipe.fromMap(Map<String, dynamic> map) {
+    return Recipe(
+      id: map['id'],
+      title: map['title'],
+      description: map['description'],
+      imagePath: map['imagePath'],
+      rating: map['rating'],
+      tags: List<String>.from(map['tags']),
+      ingredients: List<Ingredient>.from(
+          map['ingredients'].map((x) => Ingredient.fromMap(x))),
+      cookingSteps: List<CookingStep>.from(
+          map['cookingSteps'].map((x) => CookingStep.fromMap(x))),
+    );
+  }
+
   void updateRating(double newRating) {
     rating = newRating;
     notifyListeners();
+    save();
   }
 
   void addIngredient(Ingredient ingredient) {
     ingredients.add(ingredient);
     notifyListeners();
+    save();
   }
 
   void addCookingStep(CookingStep cookingStep) {
     cookingSteps.add(cookingStep);
     notifyListeners();
+    save();
   }
 
   void updateIngredient(Ingredient ingredient) {
@@ -67,6 +96,13 @@ class Recipe extends ChangeNotifier {
       ingredients[index] = ingredient;
     }
     notifyListeners();
+    save();
+  }
+
+  void deleteCookingStep(CookingStep cookingStep) {
+    cookingSteps.remove(cookingStep);
+    notifyListeners();
+    save();
   }
 
   void updateCookingStep(CookingStep cookingStep) {
@@ -76,6 +112,7 @@ class Recipe extends ChangeNotifier {
       cookingSteps[index] = cookingStep;
     }
     notifyListeners();
+    save();
   }
 
   void removeIngredient(Ingredient ingredient) {
@@ -84,6 +121,7 @@ class Recipe extends ChangeNotifier {
       ingredients[i].id = i + 1;
     }
     notifyListeners();
+    save();
   }
 
   void removeCookingStep(CookingStep cookingStep) {
@@ -92,6 +130,7 @@ class Recipe extends ChangeNotifier {
       cookingSteps[i].stepNumber = i + 1;
     }
     notifyListeners();
+    save();
   }
 }
 

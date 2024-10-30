@@ -117,14 +117,19 @@ class _EditRecipeDetailDialogState extends State<EditRecipeDetailDialog> {
                 if (widget.isNewRecipe) {
                   Provider.of<Recipes>(context, listen: false)
                       .addRecipe(widget.recipe);
+                  widget.recipe.save();
                 } else {
                   Provider.of<Recipes>(context, listen: false)
                       .updateRecipe(widget.recipe);
+                  widget.recipe.save();
                 }
                 Navigator.of(context).pop();
               }
             },
-            child: Text('Save Recipe', style: GoogleFonts.deliusSwashCaps()),
+            child: Text(
+              'Save Recipe',
+              style: GoogleFonts.deliusSwashCaps(),
+            ),
           ),
         ),
       ],

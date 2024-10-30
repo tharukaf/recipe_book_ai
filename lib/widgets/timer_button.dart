@@ -67,7 +67,6 @@ class TimerButton extends StatelessWidget {
                   );
                 },
               );
-              // ResetTimer();
               resetTimer();
             }
           });

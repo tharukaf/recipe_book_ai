@@ -163,6 +163,7 @@ class _NewCookStepDialogState extends State<NewCookStepDialog> {
                     seconds: duration['secs'] ?? 0,
                   );
                   widget.handleAddNewCookStep(cookingStep!);
+                  widget.recipe.save();
                 }
               },
               child: const Text('Add'),

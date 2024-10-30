@@ -2,44 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:recipe_book_ai/models/recipe.dart';
 
 class Recipes extends ChangeNotifier {
-  List<Recipe> recipes = <Recipe>[];
+  Map recipes = <String, Recipe>{};
   int get length => recipes.length;
 
-  Recipe operator [](int index) => recipes[index];
+  Recipe operator [](int index) =>
+      recipes.isNotEmpty ? recipes.values.elementAt(index) : Recipe.empty();
 
   Recipes(
     this.recipes,
   );
 
+  List<Recipe> getRecipeList() {
+    return recipes.values.toList().cast<Recipe>();
+  }
+
   Recipes.empty() {
-    recipes = <Recipe>[];
+    recipes = <String, Recipe>{};
   }
 
   Recipe getRecipeById(Recipe recipe) {
-    return recipes.firstWhere((element) => element.id == recipe.id,
-        orElse: () => recipe);
+    return recipes[recipe.id] ?? recipe;
   }
 
   void addRecipe(Recipe recipe) {
-    recipes.add(recipe);
+    recipes[recipe.id] = recipe;
     notifyListeners();
   }
 
   void updateRecipe(Recipe recipe) {
-    final index = recipes.indexWhere((element) => element.id == recipe.id);
-    if (index != -1) {
-      recipes[index] = recipe;
-      notifyListeners();
-    }
-  }
-
-  void removeRecipe(Recipe recipe) {
-    recipes.remove(recipe);
+    recipes[recipe.id] = recipe;
     notifyListeners();
   }
 
-  // Recipes to Json
-  List<Map<String, dynamic>> toJson() {
-    return recipes.map((recipe) => recipe.toMap()).toList();
+  void removeRecipe(Recipe recipe) {
+    recipes.remove(recipe.id);
+    notifyListeners();
   }
 }

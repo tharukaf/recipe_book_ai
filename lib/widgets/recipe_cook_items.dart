@@ -23,7 +23,12 @@ class RecipeCookItems extends StatefulWidget {
 }
 
 class _RecipeCookItemsState extends State<RecipeCookItems> {
-  void removeCookingStep(CookingStep step) {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void handleRemoveCookingStep(CookingStep step) {
     setState(() {
       widget.recipe.removeCookingStep(step);
     });
@@ -37,13 +42,13 @@ class _RecipeCookItemsState extends State<RecipeCookItems> {
       builder: (context, recipes, child) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
         child: ListView.builder(
-          itemCount: recipe.cookingSteps.length,
+          itemCount: recipes.getRecipeById(widget.recipe).cookingSteps.length,
           itemBuilder: (BuildContext context, int index) {
             return RecipeCookItem(
               cookingStep:
                   recipes.getRecipeById(widget.recipe).cookingSteps[index],
               handleAddNewCookStep: widget.handleAddNewCookStep,
-              removeCookingStep: removeCookingStep,
+              handleRemoveCookStep: handleRemoveCookingStep,
               recipe: recipe,
             );
           },
