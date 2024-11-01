@@ -22,6 +22,7 @@ dependencies:
   flutter_pannable_rating_bar: ^2.7.2+1
   searchable_listview: ^2.15.2
   dropdown_button2: ^2.3.9
+  flutter_gemini: ^2.0.5
 
 dev_dependencies:
   flutter_test:

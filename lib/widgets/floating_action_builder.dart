@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe_book_ai/widgets/add_recipe_screen.dart';
+import 'package:recipe_book_ai/widgets/responsive_layout.dart';
 
 class FloatingActionBuilder extends StatelessWidget {
   final Widget svg;
@@ -41,7 +43,7 @@ class FloatingActionBuilder extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const AddRecipeScreen(),
+                builder: (context) => const AddAIRecipeScreen(),
               ),
             );
           },
@@ -50,6 +52,38 @@ class FloatingActionBuilder extends StatelessWidget {
       backgroundColor: const Color.fromARGB(255, 255, 198, 217),
       shape: const CircleBorder(),
       child: const Icon(Icons.add),
+    );
+  }
+}
+
+class AddAIRecipeScreen extends StatelessWidget {
+  const AddAIRecipeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Add AI Recipe',
+          style: GoogleFonts.deliusSwashCaps(),
+        ),
+      ),
+      body: ResponsiveLayout(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                  child: TextField(
+                onChanged: (value) => print(value),
+                decoration: const InputDecoration(
+                  hintText: 'Enter the URL of the recipe',
+                ),
+              )),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
