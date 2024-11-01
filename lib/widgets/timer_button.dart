@@ -34,6 +34,11 @@ class TimerButton extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(left: 10, right: 10),
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+        ),
         onPressed: () {
           if (buttonPressed) {
             return;
@@ -72,11 +77,17 @@ class TimerButton extends StatelessWidget {
           });
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 3),
+          padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
           child: Column(
             children: [
-              const Text('Start Timer'),
-              Text(getTimerText(countdown)),
+              const Text('Start Timer', style: TextStyle(fontSize: 12)),
+              Text(
+                getTimerText(countdown),
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
         ),

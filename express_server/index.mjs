@@ -3,6 +3,9 @@ import "dotenv/config";
 import bodyParser from "body-parser";
 import { dataModels } from "./models/dataModels.mjs";
 
+// TODO: Add helmet to secure the server
+// TODO: Add rate-limiter to prevent abuse
+
 const app = Express();
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
@@ -13,12 +16,13 @@ app.use(bodyParser.json());
 
 const promptCache = {};
 
-const prompt = "Use the following URL to generate a recipe using the given Data Models. Use decimal numbers instead of fractions for ingredient quantities if needed. Return the recipe as a pure JSON object."
-app.get("/recipe", async (req, res) => {
+const prompt = "Use the following URL to generate a recipe using the given Data Models. Use decimal numbers instead of fractions for ingredient quantities if needed. Limit the description of the Recipe to 150 characters. Leave the duration of the cooking step as 0 if it's explicitly stated. Return the recipe as a pure JSON object."
+app.post("/recipe", async (req, res) => {
   try {
     const recipeURL = req.body.recipeURL;
     if (promptCache[recipeURL]) {
       console.log('cached');
+      res.status(200);
       res.send(JSON.parse(promptCache[recipeURL]));
     }
     else {
@@ -27,6 +31,7 @@ app.get("/recipe", async (req, res) => {
       const result = await model.generateContent([fullPrompt]);
       const cleanText = result.response.text().replace(/```json\n|\n```/g, '');
       promptCache[recipeURL] = cleanText.trim();
+      res.status(200);
       res.send(JSON.parse(cleanText.trim()));
     }
 

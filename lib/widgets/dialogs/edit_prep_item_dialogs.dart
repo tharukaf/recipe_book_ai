@@ -64,6 +64,7 @@ void prepItemShortPressDialog(
             SizedBox(
               width: 200,
               child: TextField(
+                maxLength: 50,
                 controller: TextEditingController(text: ingredient.name),
                 onChanged: (value) {
                   ingredient.name = value;

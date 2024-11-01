@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:recipe_book_ai/models/ingredient.dart';
 import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/models/recipes.dart';
-import 'package:recipe_book_ai/utils/duration.dart';
 import 'package:recipe_book_ai/widgets/clickable_item.dart';
 import 'package:recipe_book_ai/widgets/dialogs/edit_cook_item_dialogs.dart';
 import 'package:recipe_book_ai/widgets/timer_button.dart';
@@ -124,63 +123,88 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                  clipBehavior: Clip.antiAlias,
-                  constraints: const BoxConstraints.tightFor(
-                    height: 65,
-                    width: 35,
-                  ),
-                  decoration: BoxDecoration(
-                      color: Colors.purple[200],
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        bottomLeft: Radius.circular(10),
-                      )),
-                  margin: const EdgeInsets.only(right: 10),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      widget.cookingStep.stepNumber.toString(),
-                      style: GoogleFonts.pacifico(
-                        fontSize: (widget.cookingStep.stepNumber > 99
-                            ? 30
-                            : (widget.cookingStep.stepNumber > 9 ? 40 : 60)),
-                        letterSpacing: -5,
-                        color: const Color.fromARGB(104, 74, 20, 140),
+                // Display step number
+                Column(
+                  children: [
+                    Container(
+                      clipBehavior: Clip.antiAlias,
+                      constraints: const BoxConstraints(
+                        maxWidth: 35,
+                        // minHeight: 50,
+                        // maxHeight: 100,
+                      ),
+                      // height: double.infinity,
+                      decoration: BoxDecoration(
+                          color: Colors.purple[200],
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                          )),
+                      margin: const EdgeInsets.only(right: 10),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          widget.cookingStep.stepNumber.toString(),
+                          style: GoogleFonts.pacifico(
+                            fontSize: (widget.cookingStep.stepNumber > 99
+                                ? 30
+                                : (widget.cookingStep.stepNumber > 9
+                                    ? 40
+                                    : 60)),
+                            letterSpacing: -5,
+                            color: const Color.fromARGB(104, 74, 20, 140),
+                          ),
+                        ),
                       ),
                     ),
+                  ],
+                ),
+
+                // Display step description
+                Container(
+                  constraints: BoxConstraints(
+                    maxWidth: widget.cookingStep.duration > Duration.zero
+                        ? MediaQuery.of(context).size.width * 0.4
+                        : MediaQuery.of(context).size.width * 0.7,
+                  ),
+                  child: Text(
+                    widget.cookingStep.description.endsWith('.')
+                        ? widget.cookingStep.description.substring(
+                            0, widget.cookingStep.description.length - 1)
+                        : widget.cookingStep.description,
+                    overflow: TextOverflow.ellipsis,
+                    // maxLines: 5,
+                    maxLines: 7,
+                    softWrap: true,
+                    style: GoogleFonts.deliusSwashCaps(
+                        color: Colors.black54,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
-                Text(
-                  widget.cookingStep.description.endsWith('.')
-                      ? widget.cookingStep.description.substring(
-                          0, widget.cookingStep.description.length - 1)
-                      : widget.cookingStep.description,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 3,
-                  softWrap: false,
-                  style: GoogleFonts.deliusSwashCaps(
-                      color: Colors.black54,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
-                ),
-                widget.cookingStep.duration > Duration.zero
-                    ? Row(
-                        children:
-                            getDurationString(widget.cookingStep.duration),
-                      )
-                    : const Text(''),
+                // Display step duration
+                // widget.cookingStep.duration > Duration.zero
+                //     ? Row(
+                //         children:
+                //             getDurationString(widget.cookingStep.duration),
+                //       )
+                //     : const Text(''),
               ],
             ),
+            // Display timer button
             widget.cookingStep.duration.inSeconds > 0
-                ? TimerButton(
-                    cookingStep: widget.cookingStep,
-                    handleTimerTick: handleTimerTick,
-                    resetTimer: resetTimer,
-                    countdown: countdown,
-                    buttonPressed: buttonPressed,
-                    handleButtonPressed: handleButtonPressed,
-                    mounted: mounted,
+                ? Container(
+                    constraints:
+                        const BoxConstraints(minWidth: 120, maxWidth: 200),
+                    child: TimerButton(
+                      cookingStep: widget.cookingStep,
+                      handleTimerTick: handleTimerTick,
+                      resetTimer: resetTimer,
+                      countdown: countdown,
+                      buttonPressed: buttonPressed,
+                      handleButtonPressed: handleButtonPressed,
+                      mounted: mounted,
+                    ),
                   )
                 : const Text(''),
           ],

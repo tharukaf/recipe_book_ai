@@ -61,6 +61,7 @@ class _NewPrepItemDialogState extends State<NewPrepItemDialog> {
               SizedBox(
                 width: 200,
                 child: TextField(
+                  maxLength: 50,
                   onChanged: (value) {
                     ingredient?.name = value;
                   },

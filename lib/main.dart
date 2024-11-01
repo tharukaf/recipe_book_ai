@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
 import 'dart:core';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:localstore/localstore.dart';
@@ -13,20 +12,17 @@ import 'package:recipe_book_ai/utils/mock_recipes.dart';
 import 'package:recipe_book_ai/widgets/dashboard.dart';
 import 'package:recipe_book_ai/widgets/floating_action_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-// TODO: Add AI recipe addition functionality
-
-Future main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
-  String geminiAPIKey = dotenv.env['GEMINI_API_KEY'] ?? '';
-  Gemini.init(
-    apiKey: geminiAPIKey,
-    enableDebugging: true,
-  );
+  // await dotenv.load(fileName: ".env");
+  // String geminiAPIKey = dotenv.env['GEMINI_API_KEY'] ?? '';
+  // Gemini.init(
+  //   apiKey: geminiAPIKey,
+  //   enableDebugging: true,
+  // );
 
-  print('Starting the app $geminiAPIKey');
+  // print('Starting the app $geminiAPIKey');?
   runApp(
     (const MyApp()),
   );

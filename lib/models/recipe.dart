@@ -58,17 +58,21 @@ class Recipe extends ChangeNotifier {
 
   factory Recipe.fromMap(Map<String, dynamic> map) {
     return Recipe(
-      id: map['id'],
+      id: map['id'] ?? nanoid(),
       title: map['title'],
       description: map['description'],
-      imagePath: map['imagePath'],
-      rating: map['rating'],
+      imagePath: map['imagePath'] ?? '',
+      rating: map['rating'] ?? 0.0,
       tags: List<String>.from(map['tags']),
       ingredients: List<Ingredient>.from(
           map['ingredients'].map((x) => Ingredient.fromMap(x))),
       cookingSteps: List<CookingStep>.from(
           map['cookingSteps'].map((x) => CookingStep.fromMap(x))),
     );
+  }
+
+  factory Recipe.fromJson(Map<String, dynamic> json) {
+    return Recipe.fromMap(json['Recipe']);
   }
 
   void updateRating(double newRating) {

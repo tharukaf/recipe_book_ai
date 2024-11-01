@@ -94,7 +94,10 @@ class RecipePrepItem extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(left: 6),
+                padding: const EdgeInsets.only(left: 6),
+                constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.6),
+                // constraints: MediaQuery.of(context).size.width * 0.5,
                 child: Text(
                   ingredient.name,
                   style: GoogleFonts.deliusSwashCaps(
