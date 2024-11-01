@@ -2,19 +2,31 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'dart:core';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:localstore/localstore.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/models/recipes.dart';
+import 'package:recipe_book_ai/utils/mock_recipes.dart';
 import 'package:recipe_book_ai/widgets/dashboard.dart';
 import 'package:recipe_book_ai/widgets/floating_action_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 // TODO: Add AI recipe addition functionality
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+  String geminiAPIKey = dotenv.env['GEMINI_API_KEY'] ?? '';
+  Gemini.init(
+    apiKey: geminiAPIKey,
+    enableDebugging: true,
+  );
+
+  print('Starting the app $geminiAPIKey');
   runApp(
     (const MyApp()),
   );
@@ -34,25 +46,28 @@ class _MyAppState extends State<MyApp> {
   final _db = Localstore.getInstance(useSupportDir: true);
   StreamSubscription<Map<String, dynamic>>? _subscription;
 
-  /*
-  Populate the database with the mock recipes
+  // Populate the database with the mock recipes
   void saveRecipes() {
     for (var recipe in mockRecipes) {
       _db.collection('recipes').doc(recipe.id).set(recipe.toMap());
     }
-  } 
-  Call the saveRecipes function in the initState method of the _MyAppState class
-  */
+  }
+  // Call the saveRecipes function in the initState method of the _MyAppState class
 
   @override
   void initState() {
+    if (kIsWeb) {
+      saveRecipes();
+    }
     _subscription = _db.collection('recipes').stream.listen((event) {
       setState(() {
         final item = Recipe.fromMap(event);
         recipes.addRecipe(item);
       });
     });
-    if (kIsWeb) _db.collection('recipes').stream.asBroadcastStream();
+    if (kIsWeb) {
+      _db.collection('recipes').stream.asBroadcastStream();
+    }
     super.initState();
   }
 

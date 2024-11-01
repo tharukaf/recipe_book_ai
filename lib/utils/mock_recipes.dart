@@ -1,11 +1,10 @@
-import 'package:nanoid/nanoid.dart';
 import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/models/cooking_step.dart';
 import 'package:recipe_book_ai/models/ingredient.dart';
 
 final mockRecipes = <Recipe>[
   Recipe(
-    id: nanoid(),
+    id: 'WeUaELPFGDhq2VAw6k8JC',
     title: 'Spaghetti Carbonara',
     description: 'A classic Italian pasta dish',
     imagePath: 'assets/images/spaghetti_carbonara.jpg',
@@ -43,7 +42,7 @@ final mockRecipes = <Recipe>[
     rating: 3.5,
   ),
   Recipe(
-    id: nanoid(),
+    id: '9UvPvBc_qRfpHOmSfUyCf',
     title: 'Chicken Curry',
     rating: 3.8,
     description: 'A spicy and flavorful chicken curry',
@@ -72,7 +71,7 @@ final mockRecipes = <Recipe>[
     tags: ['Chicken', 'Curry', 'Spicy'],
   ),
   Recipe(
-    id: nanoid(),
+    id: 'nU8EvPW9I7qPEMb5DuiXf',
     title: 'Chocolate Cake',
     rating: 5,
     description: 'A rich and tender chocolate cake',
