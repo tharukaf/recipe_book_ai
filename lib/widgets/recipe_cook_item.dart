@@ -128,8 +128,6 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Container(
-                      height: double.infinity,
-
                       constraints: const BoxConstraints(
                         maxWidth: 35,
                         // minHeight: 50,
