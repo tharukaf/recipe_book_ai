@@ -28,9 +28,9 @@ class Ingredient {
     return Ingredient(
       id: map['id'],
       name: map['name'],
-      quantity: map['quantity'].toDouble(),
-      unit: map['unit'],
-      isDone: map['isDone'],
+      quantity: map['quantity'].toDouble() ?? 0.0,
+      unit: map['unit'] ?? '',
+      isDone: map['isDone'] ?? false,
     );
   }
 }

@@ -1,32 +1,39 @@
 import Express from "express";
+import helmet from "helmet";
 import "dotenv/config";
 import bodyParser from "body-parser";
 import { dataModels } from "./models/dataModels.mjs";
-
-// TODO: Add helmet to secure the server
-// TODO: Add rate-limiter to prevent abuse
+import cors from "cors";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { rateLimit } from 'express-rate-limit'
 
 const app = Express();
 
-import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000,
+	limit: 40,
+	standardHeaders: 'draft-7', 
+	legacyHeaders: false, 
+})
 
+app.use(limiter)
+app.use(helmet());
+app.use(cors());
 app.use(bodyParser.json());
 
 const promptCache = {};
 
-const prompt = "Use the following URL to generate a recipe using the given Data Models. Use decimal numbers instead of fractions for ingredient quantities if needed. Limit the description of the Recipe to 150 characters. Leave the duration of the cooking step as 0 if it's explicitly stated. Return the recipe as a pure JSON object."
+const prompt = "Use the following URL to generate a recipe using the given Data Models. Use decimal numbers instead of fractions for ingredient quantities if needed. Limit the description of the Recipe to 150 characters. Only set the duration parameter (in minutes) of the CookingStep data model if a some duration is mentioned, else set the duration to 0. Only use ingredients mentioned in the article. Return the recipe as a Recipe object as defined in the data models."
 app.post("/recipe", async (req, res) => {
   try {
     const recipeURL = req.body.recipeURL;
     if (promptCache[recipeURL]) {
-      console.log('cached');
       res.status(200);
       res.send(JSON.parse(promptCache[recipeURL]));
     }
     else {
-      console.log('not cached');
       const fullPrompt = `${prompt} URL:${recipeURL}\n\nData Models:\n${JSON.stringify(dataModels, null, 2)}`;
       const result = await model.generateContent([fullPrompt]);
       const cleanText = result.response.text().replace(/```json\n|\n```/g, '');
@@ -34,7 +41,7 @@ app.post("/recipe", async (req, res) => {
       res.status(200);
       res.send(JSON.parse(cleanText.trim()));
     }
-
+    console.log(promptCache[recipeURL]);
   } catch (error) {
     console.log(error);
     res.status(400).send("Invalid URL");

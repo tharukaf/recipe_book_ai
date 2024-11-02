@@ -25,6 +25,7 @@ dependencies:
   flutter_gemini: ^2.0.5
   flutter_dotenv: ^5.2.1
   http: ^1.2.2
+  typewritertext: ^3.0.9
 
 dev_dependencies:
   flutter_test:

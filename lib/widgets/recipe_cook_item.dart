@@ -125,9 +125,11 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
               children: [
                 // Display step number
                 Column(
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     Container(
-                      clipBehavior: Clip.antiAlias,
+                      height: double.infinity,
+
                       constraints: const BoxConstraints(
                         maxWidth: 35,
                         // minHeight: 50,
@@ -140,7 +142,7 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
                             topLeft: Radius.circular(10),
                             bottomLeft: Radius.circular(10),
                           )),
-                      margin: const EdgeInsets.only(right: 10),
+                      margin: const EdgeInsets.only(right: 11),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(
@@ -165,7 +167,7 @@ class _RecipeCookItemState extends State<RecipeCookItem> {
                   constraints: BoxConstraints(
                     maxWidth: widget.cookingStep.duration > Duration.zero
                         ? MediaQuery.of(context).size.width * 0.4
-                        : MediaQuery.of(context).size.width * 0.7,
+                        : MediaQuery.of(context).size.width * 0.6,
                   ),
                   child: Text(
                     widget.cookingStep.description.endsWith('.')
