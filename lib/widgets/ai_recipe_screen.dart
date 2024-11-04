@@ -30,7 +30,6 @@ class _AddAIRecipeScreenState extends State<AddAIRecipeScreen> {
   }
 
   void handleChangeRecipeText(String text) {
-    print(text);
     setState(() {
       recipeText = text;
     });
@@ -210,13 +209,9 @@ class BuildRecipeText extends StatelessWidget {
 }
 
 Future<Recipe> createRecipe(String recipeURL, handleChangeText) async {
-  await dotenv.load(fileName: ".env");
   try {
-    log(dotenv.env['GEMINI_API_KEY'] ?? 'No API key found');
     final response = await http.post(
-      // Uri.parse('${dotenv.env['GEMINI_API_URL']}recipe'),
-      Uri.parse(
-          'https://express-server-crimson-wildflower-6648.fly.dev/recipe'),
+      Uri.parse('${dotenv.env['SERVER_ADDRESS']}recipe'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
