@@ -5,7 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/widgets/responsive_layout.dart';
 import 'package:http/http.dart' as http;
-import 'package:typewritertext/typewritertext.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:typewritertext/typewritertext.dart';
 
 // ignore: must_be_immutable
 class AddAIRecipeScreen extends StatefulWidget {
@@ -104,6 +105,7 @@ class _AddAIRecipeScreenState extends State<AddAIRecipeScreen> {
                               recipe = await createRecipe(
                                   url, handleChangeRecipeText);
                               if (recipe.title == '') {
+                                if (!context.mounted) return;
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text('Failed to create recipe.'),
@@ -114,7 +116,6 @@ class _AddAIRecipeScreenState extends State<AddAIRecipeScreen> {
                               recipe.save();
 
                               if (!context.mounted) return;
-
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text('Recipe added successfully!'),
@@ -209,9 +210,13 @@ class BuildRecipeText extends StatelessWidget {
 }
 
 Future<Recipe> createRecipe(String recipeURL, handleChangeText) async {
+  await dotenv.load(fileName: ".env");
   try {
+    log(dotenv.env['GEMINI_API_KEY'] ?? 'No API key found');
     final response = await http.post(
-      Uri.parse('http://localhost:3000/recipe'),
+      // Uri.parse('${dotenv.env['GEMINI_API_URL']}recipe'),
+      Uri.parse(
+          'https://express-server-crimson-wildflower-6648.fly.dev/recipe'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
