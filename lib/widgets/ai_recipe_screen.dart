@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe_book_ai/models/recipe.dart';
 import 'package:recipe_book_ai/widgets/responsive_layout.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import 'package:typewritertext/typewritertext.dart';
 
 // ignore: must_be_immutable
@@ -211,7 +210,8 @@ class BuildRecipeText extends StatelessWidget {
 Future<Recipe> createRecipe(String recipeURL, handleChangeText) async {
   try {
     final response = await http.post(
-      Uri.parse('${dotenv.env['SERVER_ADDRESS']}recipe'),
+      // Uri.parse('${dotenv.env['SERVER_ADDRESS']}recipe'),
+      Uri.parse('https://recipe-book-ai.onrender.com/recipe'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

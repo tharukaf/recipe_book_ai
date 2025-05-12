@@ -29,10 +29,10 @@ class _DashboardState extends State<Dashboard> {
               builder: (context, recipes, child) => Padding(
                 padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
                 child: SearchableList<Recipe>(
-                  spaceBetweenSearchAndList: 12,
-                  style: GoogleFonts.deliusSwashCaps(
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                  ),
+                  // spaceBetweenSearchAndList: 12,
+                  // style: GoogleFonts.deliusSwashCaps(
+                  //   color: const Color.fromARGB(255, 255, 255, 255),
+                  // ),
                   displaySearchIcon: false,
                   initialList: Provider.of<Recipes>(context).getRecipeList(),
                   itemBuilder: (Recipe recipe) =>
