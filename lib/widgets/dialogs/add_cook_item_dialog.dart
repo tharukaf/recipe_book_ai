@@ -24,7 +24,7 @@ final boxDeco = BoxDecoration(
   gradient: LinearGradient(
     colors: [
       const Color.fromARGB(255, 255, 192, 218),
-      const Color.fromARGB(255, 250, 181, 181).withOpacity(0.5),
+      const Color.fromARGB(255, 250, 181, 181).withValues(alpha: 0.5),
     ],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
